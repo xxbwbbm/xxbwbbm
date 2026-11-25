@@ -23,7 +23,7 @@ FEED_URL = f"https://www.youtube.com/feeds/videos.xml?playlist_id={PLAYLIST_ID}"
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets" / "now-playing.svg"
 FONTS = ROOT / "assets" / "fonts"
-W, H = 467, 195
+W, H = 1416, 195
 NS = {"a": "http://www.w3.org/2005/Atom", "media": "http://search.yahoo.com/mrss/",
       "yt": "http://www.youtube.com/xml/schemas/2015"}
 NOISE = re.compile(r"\s*[\(\[\{][^\)\]\}]*(official|video|audio|lyric|lyrics|mv|m/v|visualizer|hd|4k|live|"
@@ -83,7 +83,7 @@ def font(weight, name):
 
 
 def build_svg(song, artist, label_uri, index, total):
-    """Card with the same frame ratio as the GitHub Stats card (467x195)."""
+    """Wide player bar: same height as the GitHub Stats card, as wide as the stats row."""
     e = html.escape
     grooves = "".join(f'<circle r="{r}" fill="none" stroke="#1a2366" stroke-width=".8" opacity=".7"/>'
                       for r in range(36, 64, 4))
@@ -92,13 +92,17 @@ def build_svg(song, artist, label_uri, index, total):
         f'style="animation-duration:{.7 + (i * 37 % 7) / 10:.1f}s;animation-delay:-{(i * 13 % 9) / 10:.1f}s"/>'
         for i in range(13))
     counter = f"{index + 1:02d} / {total:02d}" if total > 1 else ""
+    big_eq = "".join(
+        f'<rect class="eq" x="{1206 + i * 13}" y="62" width="8" height="84" rx="4" fill="url(#eqg)" '
+        f'style="animation-duration:{.7 + (i * 29 % 8) / 10:.1f}s;animation-delay:-{(i * 17 % 9) / 10:.1f}s"/>'
+        for i in range(14))
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">
 <defs>
   <linearGradient id="card" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#070b2e"/><stop offset="1" stop-color="#04082c"/></linearGradient>
   <linearGradient id="eqg" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3f5bd9"/><stop offset="1" stop-color="#eaf1ff"/></linearGradient>
   <radialGradient id="shine" cx=".3" cy=".25" r=".9"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></radialGradient>
   <clipPath id="lab"><circle r="30"/></clipPath>
-  <clipPath id="track"><rect x="178" y="140" width="264" height="4" rx="2"/></clipPath>
+  <clipPath id="track"><rect x="178" y="140" width="980" height="4" rx="2"/></clipPath>
 </defs>
 <style>
   {font(400, "Poppins-Regular-vi.woff")}
@@ -109,7 +113,7 @@ def build_svg(song, artist, label_uri, index, total):
   .prog {{ animation: prog 210s linear -70s infinite; }}
   @keyframes spin {{ to {{ transform: rotate(360deg); }} }}
   @keyframes eq {{ from {{ transform: scaleY(.2); }} to {{ transform: scaleY(1); }} }}
-  @keyframes prog {{ from {{ transform: translateX(-264px); }} to {{ transform: translateX(0); }} }}
+  @keyframes prog {{ from {{ transform: translateX(-980px); }} to {{ transform: translateX(0); }} }}
   @media (prefers-reduced-motion: reduce) {{ .spin, .eq, .prog {{ animation: none; }} }}
 </style>
 <rect x=".5" y=".5" width="{W - 1}" height="{H - 1}" rx="4.5" fill="url(#card)"/>
@@ -127,28 +131,13 @@ def build_svg(song, artist, label_uri, index, total):
 </g>
 {viz}
 <text x="178" y="42" fill="#6a72a8" font-size="10.5" font-weight="500" letter-spacing="2.8">NOW PLAYING</text>
-<text x="{W - 25}" y="42" fill="#6a72a8" font-size="10.5" text-anchor="end" letter-spacing="1">{counter}</text>
-<text x="178" y="80" fill="#eaf1ff" font-size="21" font-weight="500">{e(clip(song, 21))}</text>
-<text x="178" y="104" fill="#aab6f0" font-size="13">{e(clip(artist, 32))}</text>
-<rect x="178" y="140" width="264" height="4" rx="2" fill="#1a2366"/>
-<g clip-path="url(#track)"><rect class="prog" x="178" y="140" width="264" height="4" rx="2" fill="#eaf1ff"/></g>
+<text x="{W - 30}" y="42" fill="#6a72a8" font-size="10.5" text-anchor="end" letter-spacing="1">{counter}</text>
+<text x="178" y="80" fill="#eaf1ff" font-size="21" font-weight="500">{e(clip(song, 60))}</text>
+<text x="178" y="104" fill="#aab6f0" font-size="13">{e(clip(artist, 90))}</text>
+<rect x="178" y="140" width="980" height="4" rx="2" fill="#1a2366"/>
+<g clip-path="url(#track)"><rect class="prog" x="178" y="140" width="980" height="4" rx="2" fill="#eaf1ff"/></g>
 <text x="178" y="166" fill="#6a72a8" font-size="11">YouTube playlist · 4github</text>
-</svg>
-'''
-
-
-BUTTON_PATHS = {   # simple geometric glyphs drawn in a 48x48 box
-    "prev": '<rect x="15" y="16" width="3.5" height="16" rx="1.2"/><path d="M33 16 L20 24 L33 32 Z"/>',
-    "play": '<path d="M19 14.5 L35 24 L19 33.5 Z"/>',
-    "next": '<path d="M15 16 L28 24 L15 32 Z"/><rect x="29.5" y="16" width="3.5" height="16" rx="1.2"/>',
-}
-
-
-def build_button(kind):
-    big = kind == "play"
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-<circle cx="24" cy="24" r="{22.5 if big else 20}" fill="{"#eaf1ff" if big else "#0e113e"}" stroke="#172e80" stroke-width="1.2"/>
-<g fill="{"#04082c" if big else "#cbd5f5"}">{BUTTON_PATHS[kind]}</g>
+{big_eq}
 </svg>
 '''
 
@@ -165,14 +154,10 @@ def update_readme(entries, index):
     if start not in text or end not in text:
         print("README markers not found; skipping README update")
         return
-    n = len(entries)
-    cur, prev, nxt = entries[index], entries[(index - 1) % n], entries[(index + 1) % n]
+    cur = entries[index]
     block = f'''{start}
 <p align="center">
-  <a href="{watch_url(cur["id"])}"><img width="32%" src="./assets/now-playing.svg" alt="Now playing" /></a><br/>
-  <a href="{watch_url(prev["id"])}"><img width="4%" src="./assets/np-prev.svg" alt="Previous" /></a>&nbsp;
-  <a href="{watch_url(cur["id"])}"><img width="4.6%" src="./assets/np-play.svg" alt="Play on YouTube" /></a>&nbsp;
-  <a href="{watch_url(nxt["id"])}"><img width="4%" src="./assets/np-next.svg" alt="Next" /></a>
+  <a href="{watch_url(cur["id"])}"><img width="97%" src="./assets/now-playing.svg" alt="Now playing" /></a>
 </p>
 {end}'''
     a, b = text.index(start), text.index(end) + len(end)
@@ -191,8 +176,6 @@ def main(argv):
     song, artist = split_title(pick["title"], pick["channel"])
     thumb = pathlib.Path(args["--thumb-file"]).read_bytes() if "--thumb-file" in args else fetch(pick["thumb"])
     OUT.write_text(build_svg(song, artist, label_data(thumb), index, len(entries)), encoding="utf-8")
-    for kind in ("prev", "play", "next"):
-        (OUT.parent / f"np-{kind}.svg").write_text(build_button(kind), encoding="utf-8")
     update_readme(entries, index)
     print(f"now playing [{index + 1}/{len(entries)}]: {song} — {artist}")
 
