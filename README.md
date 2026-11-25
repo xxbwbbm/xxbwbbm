@@ -17,7 +17,7 @@
 
 ### About me
 
-<img align="right" width="24%" src="./assets/ascii-sword.svg?v=d16092a5" alt="ASCII art" />
+<img align="right" width="30%" src="./assets/ascii-sword.svg?v=d16092a5" alt="ASCII art" />
 
 - Information Systems student at **University of Information Technology (UIT) – VNU-HCM**
 - Heading toward **Data Analyst / Data Engineer / AI Engineer** roles
@@ -27,7 +27,7 @@
 - Into music, movies, gaming, the gym, video editing and photography
 - Reach me: **thuatsichanh@gmail.com**
 
-<img width="70%" src="./assets/soft-skills.svg?v=241cb53d" alt="Soft skills radar chart" />
+<img width="66%" src="./assets/soft-skills.svg?v=241cb53d" alt="Soft skills radar chart" />
 
 <br clear="all" />
 
