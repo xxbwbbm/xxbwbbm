@@ -29,7 +29,6 @@ text {{ font-family: "PoppinsR", "Poppins", "Segoe UI", Helvetica, Arial, sans-s
 .lab {{ font-size: 16px; fill: #cbcddb; }}
 .val {{ font-size: 16px; font-weight: 500; fill: #eaf1ff; }}
 </style>
-<rect x=".5" y=".5" width="{W-1}" height="{H-1}" rx="14" fill="#04082c" stroke="#111f69"/>
 <text class="title" x="28" y="44">Soft skills</text>
 <text class="sub" x="28" y="68">Self-assessed, average {avg}%</text>"""]
 # spider-web grid: 6 main threads (the skill axes) + randomly spaced, sagging rings
@@ -44,14 +43,20 @@ gaps = [rnd.uniform(.6, 1.4) for _ in range(9)]
 base = [sum(gaps[:k + 1]) / sum(gaps) for k in range(9)]
 for k, b0 in enumerate(base):
     rs = [R * min(1.0, max(.05, b0 + rnd.uniform(-.035, .035))) for _ in range(N_SP)] if k < 8 else [R] * N_SP
-    d = []
     for i in range(N_SP):
         x1, y1 = wp(ang[i], rs[i]); x2, y2 = wp(ang[(i + 1) % N_SP], rs[(i + 1) % N_SP])
         sag = rnd.uniform(.72, .9)
         mx, my = (x1 + x2) / 2, (y1 + y2) / 2
         cx, cy = CX + (mx - CX) * sag, CY + (my - CY) * sag
-        d.append((f"M{x1:.1f},{y1:.1f} " if i == 0 else "") + f"Q{cx:.1f},{cy:.1f} {x2:.1f},{y2:.1f}")
-    out.append(f'<path d="{" ".join(d)}" fill="none" stroke="#8fa6f5" stroke-opacity="{.5 if k < 8 else .7}" stroke-width="1"/>')
+        roll = rnd.random()
+        if roll < .2 and k < 8:
+            continue  # thread missing entirely
+        dash = ""
+        if roll < .5 and k < 8:  # broken thread: one piece, a gap, maybe a stub
+            L = math.dist((x1, y1), (x2, y2)) * 1.05
+            p1 = L * rnd.uniform(.2, .6); g = L * rnd.uniform(.2, .4)
+            dash = f' stroke-dasharray="{p1:.1f} {g:.1f} {L:.1f}"'
+        out.append(f'<path d="M{x1:.1f},{y1:.1f} Q{cx:.1f},{cy:.1f} {x2:.1f},{y2:.1f}" fill="none" stroke="#8fa6f5" stroke-opacity="{.5 if k < 8 else .7}" stroke-width="1"{dash}/>')
 for a in ang:
     x, y = wp(a, R * 1.12)
     out.append(f'<line x1="{CX}" y1="{CY}" x2="{x:.1f}" y2="{y:.1f}" stroke="#cbd5ff" stroke-opacity=".9" stroke-width="1.6" stroke-linecap="round"/>')
