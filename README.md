@@ -17,7 +17,7 @@
 
 ### About me
 
-<img align="right" width="30%" src="./assets/ascii-sword.svg?v=d16092a5" alt="ASCII art" />
+<img align="right" width="30%" src="./assets/ascii-sword.svg?v=d45dff12" alt="ASCII art" />
 
 - Information Systems student at **University of Information Technology (UIT) – VNU-HCM**
 - Heading toward **Data Analyst / Data Engineer / AI Engineer** roles
