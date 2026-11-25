@@ -41,7 +41,7 @@
 
 <!-- Tạo bởi workflow .github/workflows/profile-3d.yml; scripts/make_3d_anim.py dựng thành WebP động (16:9, sóng, font Poppins) -->
 <p align="center">
-  <img width="100%" src="./profile-3d-contrib/profile-night.webp" alt="3D contribution" />
+  <img width="97%" src="./profile-3d-contrib/profile-night.webp" alt="3D contribution" />
 </p>
 
 <!-- ============ KHUNG HOA HỒNG (dưới) ============ -->
