@@ -15,6 +15,11 @@
   <img src="https://komarev.com/ghpvc/?username=xxbwbbm&style=for-the-badge&color=172e80&label=PROFILE+VIEWS" />
 </p>
 
+<!-- ============ NOW PLAYING: tự đổi bài mỗi giờ từ playlist YouTube "4github" (workflow now-playing.yml) ============ -->
+<p align="center">
+  <a href="https://www.youtube.com/playlist?list=PLeWdGep5MypQ"><img width="100%" src="./assets/now-playing.svg" alt="Now playing from my YouTube playlist" /></a>
+</p>
+
 ### About me
 
 - Student at **University of Information Technology (UIT) – VNU-HCM**, major: **Information Systems**

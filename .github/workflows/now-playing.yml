@@ -1,0 +1,30 @@
+# Cập nhật thẻ "Now playing" từ playlist YouTube "4github" — mỗi giờ đổi một bài
+name: Now Playing
+
+on:
+  schedule:
+    - cron: "17 * * * *"   # phút 17 mỗi giờ
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install Pillow
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq python3-pil
+      - name: Build card from playlist
+        run: python3 scripts/now_playing.py
+      - name: Commit & Push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add assets/now-playing.svg
+          if git commit -m "update now playing"; then
+            git pull --rebase -q && git push
+          fi
