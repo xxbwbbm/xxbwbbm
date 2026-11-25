@@ -19,11 +19,15 @@
 
 <img align="right" width="230" src="./assets/ascii-sword.svg?v=d16092a5" alt="ASCII art" />
 
-- Student at **University of Information Technology (UIT) – VNU-HCM**, major: **Information Systems**
-- Working on course projects: web development, system analysis & design, databases
-- Getting into scientific research
-- Hobbies: video games, video editing, cinematic & science fiction movies
+- Information Systems student at **University of Information Technology (UIT) – VNU-HCM**
+- Heading toward **Data Analyst / Data Engineer / AI Engineer** roles
+- Keen to get involved in scientific research
+- MBTI: **ENTP**
+- Deadly sin of choice: **Ego**
+- Into music, movies, gaming, the gym, video editing and photography
 - Reach me: **thuatsichanh@gmail.com**
+
+<img width="62%" src="./assets/soft-skills.svg?v=0715aa84" alt="Soft skills radar chart" />
 
 <br clear="all" />
 
