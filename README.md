@@ -17,10 +17,13 @@
 
 ### About me
 
+<!-- Trăng đêm nay trên Sài Gòn: scripts/moon.py vẽ lại mỗi giờ (workflow now-playing.yml) -->
+<img align="right" width="36%" src="./assets/moon.svg" alt="Tonight's moon over Saigon" />
+
 - Student at **University of Information Technology (UIT) – VNU-HCM**, major: **Information Systems**
 - Working on course projects: web development, system analysis & design, databases
 - Getting into scientific research
-- Hobby: Video games, Video Edited, Cinematic & Science Fiction Movie
+- Hobbies: video games, video editing, cinematic & science fiction movies
 - Reach me: **thuatsichanh@gmail.com**
 
 <!-- ============ NOW PLAYING: tự đổi bài mỗi giờ từ playlist YouTube "4github" (workflow now-playing.yml cập nhật khối dưới) ============ -->

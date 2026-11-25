@@ -104,7 +104,7 @@ def build_svg(song, artist, label_uri, index, total):
   <linearGradient id="eqg" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3f5bd9"/><stop offset="1" stop-color="#eaf1ff"/></linearGradient>
   <radialGradient id="shine" cx=".3" cy=".25" r=".9"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></radialGradient>
   <clipPath id="lab"><circle r="30"/></clipPath>
-  <clipPath id="track"><rect x="178" y="140" width="980" height="4" rx="2"/></clipPath>
+  <clipPath id="track"><rect x="178" y="144" width="998" height="5" rx="2.5"/></clipPath>
 </defs>
 <style>
   {font(400, "Poppins-Regular-vi.woff")}
@@ -115,7 +115,7 @@ def build_svg(song, artist, label_uri, index, total):
   .prog {{ animation: prog 210s linear -70s infinite; }}
   @keyframes spin {{ to {{ transform: rotate(360deg); }} }}
   @keyframes eq {{ from {{ transform: scaleY(.2); }} to {{ transform: scaleY(1); }} }}
-  @keyframes prog {{ from {{ transform: translateX(-980px); }} to {{ transform: translateX(0); }} }}
+  @keyframes prog {{ from {{ transform: translateX(-998px); }} to {{ transform: translateX(0); }} }}
   @media (prefers-reduced-motion: reduce) {{ .spin, .eq, .prog {{ animation: none; }} }}
 </style>
 <rect x=".5" y=".5" width="{W - 1}" height="{H - 1}" rx="4.5" fill="url(#card)"/>
@@ -132,13 +132,13 @@ def build_svg(song, artist, label_uri, index, total):
   <circle r="67" fill="url(#shine)"/>
 </g>
 {viz}
-<text x="178" y="42" fill="#6a72a8" font-size="10.5" font-weight="500" letter-spacing="2.8">NOW PLAYING</text>
-<text x="{W - 30}" y="42" fill="#6a72a8" font-size="10.5" text-anchor="end" letter-spacing="1">{counter}</text>
-<text x="178" y="80" fill="#eaf1ff" font-size="21" font-weight="500">{e(clip(song, 60))}</text>
-<text x="178" y="104" fill="#aab6f0" font-size="13">{e(clip(artist, 90))}</text>
-<rect x="178" y="140" width="980" height="4" rx="2" fill="#1a2366"/>
-<g clip-path="url(#track)"><rect class="prog" x="178" y="140" width="980" height="4" rx="2" fill="#eaf1ff"/></g>
-<text x="178" y="166" fill="#6a72a8" font-size="11">YouTube playlist · 4github</text>
+<text x="178" y="44" fill="#8a92c4" font-size="17" font-weight="500" letter-spacing="1">Now playing</text>
+<text x="1176" y="44" fill="#8a92c4" font-size="17" text-anchor="end">{counter}</text>
+<text x="178" y="88" fill="#eaf1ff" font-size="32" font-weight="500">{e(clip(song, 52))}</text>
+<text x="178" y="120" fill="#aab6f0" font-size="21">{e(clip(artist, 70))}</text>
+<rect x="178" y="144" width="998" height="5" rx="2.5" fill="#1a2366"/>
+<g clip-path="url(#track)"><rect class="prog" x="178" y="144" width="998" height="5" rx="2.5" fill="#eaf1ff"/></g>
+<text x="178" y="178" fill="#8a92c4" font-size="17">From my YouTube playlist “4github”</text>
 {big_eq}
 </svg>
 '''
