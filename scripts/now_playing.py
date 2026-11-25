@@ -7,6 +7,7 @@ Usage: python3 scripts/now_playing.py [--feed-file feed.xml] [--thumb-file img.j
 Needs: Pillow (python3-pil). Everything else is the standard library.
 """
 import base64
+import hashlib
 import html
 import io
 import pathlib
@@ -146,7 +147,7 @@ def watch_url(vid):
     return f"https://www.youtube.com/watch?v={vid}&list={PLAYLIST_ID}"
 
 
-def update_readme(entries, index):
+def update_readme(entries, index, version):
     """Rewrite the block between the NOW-PLAYING markers so the buttons point at the right videos."""
     readme = ROOT / "README.md"
     text = readme.read_text(encoding="utf-8")
@@ -157,7 +158,7 @@ def update_readme(entries, index):
     cur = entries[index]
     block = f'''{start}
 <p align="center">
-  <a href="{watch_url(cur["id"])}"><img width="97%" src="./assets/now-playing.svg" alt="Now playing" /></a>
+  <a href="{watch_url(cur["id"])}"><img width="97%" src="./assets/now-playing.svg?v={version}" alt="Now playing" /></a>
 </p>
 {end}'''
     a, b = text.index(start), text.index(end) + len(end)
@@ -175,8 +176,10 @@ def main(argv):
     pick = entries[index]
     song, artist = split_title(pick["title"], pick["channel"])
     thumb = pathlib.Path(args["--thumb-file"]).read_bytes() if "--thumb-file" in args else fetch(pick["thumb"])
-    OUT.write_text(build_svg(song, artist, label_data(thumb), index, len(entries)), encoding="utf-8")
-    update_readme(entries, index)
+    svg = build_svg(song, artist, label_data(thumb), index, len(entries))
+    OUT.write_text(svg, encoding="utf-8")
+    # cache-busting: the image URL changes whenever the card changes, so GitHub can't keep an old copy
+    update_readme(entries, index, hashlib.sha1(svg.encode()).hexdigest()[:10])
     print(f"now playing [{index + 1}/{len(entries)}]: {song} — {artist}")
 
 
