@@ -25,6 +25,8 @@
 - Hobbies: video games, video editing, cinematic & science fiction movies
 - Reach me: **thuatsichanh@gmail.com**
 
+<br clear="all" />
+
 ### Selected projects
 
 <!-- Thẻ dự án: scripts/projects.py tạo từ scripts/projects.json (workflow profile-3d.yml cập nhật mỗi ngày) -->
