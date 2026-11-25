@@ -11,7 +11,7 @@
 </style>
 <rect x=".5" y=".5" width="419" height="189" rx="4.5" fill="#04082c"/>
 <text x="26" y="48" class="title">Electronics Store Manager</text>
-<text x="26" y="84" class="desc">Desktop app for an electronics store:</text><text x="26" y="108" class="desc">inventory, procurement, invoices and</text>
+<text x="26" y="84" class="desc">Desktop app for an electronics store:</text><text x="26" y="108" class="desc">stock, purchasing, invoices and staff.</text>
 <text x="26" y="146" class="tech">Java Swing, Oracle DB, JFreeChart</text>
 <text x="26" y="170" class="meta">Team project, 88 commits</text>
 </svg>
