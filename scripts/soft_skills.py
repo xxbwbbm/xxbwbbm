@@ -45,18 +45,27 @@ for k, b0 in enumerate(base):
     rs = [R * min(1.0, max(.05, b0 + rnd.uniform(-.035, .035))) for _ in range(N_SP)] if k < 8 else [R] * N_SP
     for i in range(N_SP):
         x1, y1 = wp(ang[i], rs[i]); x2, y2 = wp(ang[(i + 1) % N_SP], rs[(i + 1) % N_SP])
-        sag = rnd.uniform(.72, .9)
+        L = math.dist((x1, y1), (x2, y2))
+        # gravity: threads bow slightly inward and droop downward
+        sag = rnd.uniform(.86, .95)
         mx, my = (x1 + x2) / 2, (y1 + y2) / 2
-        cx, cy = CX + (mx - CX) * sag, CY + (my - CY) * sag
+        cx, cy = CX + (mx - CX) * sag, CY + (my - CY) * sag + L * rnd.uniform(.12, .22)
+        op = .5 if k < 8 else .7
         roll = rnd.random()
-        if roll < .2 and k < 8:
-            continue  # thread missing entirely
-        dash = ""
-        if roll < .5 and k < 8:  # broken thread: one piece, a gap, maybe a stub
-            L = math.dist((x1, y1), (x2, y2)) * 1.05
-            p1 = L * rnd.uniform(.2, .6); g = L * rnd.uniform(.2, .4)
-            dash = f' stroke-dasharray="{p1:.1f} {g:.1f} {L:.1f}"'
-        out.append(f'<path d="M{x1:.1f},{y1:.1f} Q{cx:.1f},{cy:.1f} {x2:.1f},{y2:.1f}" fill="none" stroke="#8fa6f5" stroke-opacity="{.5 if k < 8 else .7}" stroke-width="1"{dash}/>')
+        if k < 8 and roll < .32:
+            # torn thread: one or both loose ends hang from their anchor and sway
+            ends = [((x1, y1), (x2, y2))] if roll < .2 else [((x1, y1), (x2, y2)), ((x2, y2), (x1, y1))]
+            for (ax, ay), (bx, by) in ends:
+                l = L * rnd.uniform(.35, .7)
+                ux, uy = (bx - ax) / L, (by - ay) / L
+                ex, ey = ax + ux * l * .35, ay + uy * l * .35 + l * .85
+                qx, qy = ax + ux * l * .55, ay + uy * l * .55 + l * .15
+                amp, dur = rnd.uniform(3, 7), rnd.uniform(3.5, 6.5)
+                out.append(f'<g><path d="M{ax:.1f},{ay:.1f} Q{qx:.1f},{qy:.1f} {ex:.1f},{ey:.1f}" fill="none" stroke="#8fa6f5" stroke-opacity="{op + .15}" stroke-width="1.1" stroke-linecap="round"/>'
+                           f'<animateTransform attributeName="transform" type="rotate" values="{-amp:.1f} {ax:.1f} {ay:.1f};{amp:.1f} {ax:.1f} {ay:.1f};{-amp:.1f} {ax:.1f} {ay:.1f}" '
+                           f'dur="{dur:.1f}s" begin="-{rnd.uniform(0, dur):.1f}s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>')
+            continue
+        out.append(f'<path d="M{x1:.1f},{y1:.1f} Q{cx:.1f},{cy:.1f} {x2:.1f},{y2:.1f}" fill="none" stroke="#8fa6f5" stroke-opacity="{op}" stroke-width="1"/>')
 for a in ang:
     x, y = wp(a, R * 1.12)
     out.append(f'<line x1="{CX}" y1="{CY}" x2="{x:.1f}" y2="{y:.1f}" stroke="#cbd5ff" stroke-opacity=".9" stroke-width="1.6" stroke-linecap="round"/>')
