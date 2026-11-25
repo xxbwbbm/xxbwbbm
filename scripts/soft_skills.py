@@ -4,7 +4,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SKILLS = [("Analytical thinking", 85), ("Problem-solving", 85), ("Critical thinking", 80),
           ("Self-learning", 75), ("Communication", 75), ("Teamwork", 65),
           ("Time management", 65), ("Adaptability", 85)]
-W, H, CX, CY, R = 800, 510, 400, 282, 150
+W, H, CX, CY, R = 820, 540, 410, 298, 172
 
 def b64(name):
     return base64.b64encode((ROOT / "assets/fonts" / name).read_bytes()).decode()
@@ -32,7 +32,7 @@ text {{ font-family: "PoppinsR", "Poppins", "Segoe UI", Helvetica, Arial, sans-s
 </style>
 <text class="title" x="28" y="44">Soft skills</text>
 <text class="sub" x="28" y="68">Self-assessed, average {avg}%</text>"""]
-# ---- orb web: anchor lines, radials, irregular hub, one capture spiral, dew, torn strands ----
+# ---- orb web: anchor lines, radials, 10 rings (10% each), dew, torn strands ----
 import random
 rnd = random.Random(23)
 N = len(SKILLS)
@@ -52,57 +52,41 @@ def sway(inner, ax, ay, amp, dur):
             f'begin="-{rnd.uniform(0, dur):.1f}s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>')
 # bridge / anchor threads running off toward the edges of the frame
 for a in MAIN:
-    x1, y1 = wp(a, R * 1.12)
-    x2, y2 = wp(a + rnd.uniform(-.08, .08), R * rnd.uniform(1.5, 1.9))
+    x1, y1 = wp(a, R)
+    x2, y2 = wp(a + rnd.uniform(-.08, .08), R * rnd.uniform(1.45, 1.8))
     out.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{SILK}" stroke-opacity=".22" stroke-width=".8"/>')
-# frame thread: slack polygon joining the radial tips, drooping under its own weight
-tips = [wp(a, R * 1.12) for a in MAIN]
-d = f"M{tips[0][0]:.1f},{tips[0][1]:.1f}"
-for i in range(N):
-    p0, p1 = tips[i], tips[(i + 1) % N]
-    mx, my = (p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2
-    d += f" Q{CX + (mx - CX) * .93:.1f},{CY + (my - CY) * .93 + 10:.1f} {p1[0]:.1f},{p1[1]:.1f}"
-out.append(f'<path d="{d}" fill="none" stroke="{SILK}" stroke-opacity=".45" stroke-width="1"/>')
 # faint secondary radials (start partway out, like real orb webs)
 for i, a in enumerate(RAD):
     if i % SUB:
-        x1, y1 = wp(a, R * rnd.uniform(.2, .45)); x2, y2 = wp(a, R * rnd.uniform(1.0, 1.08))
+        x1, y1 = wp(a, R * rnd.uniform(.2, .45)); x2, y2 = wp(a, R)
         out.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{SILK}" stroke-opacity=".2" stroke-width=".7"/>')
-# irregular hub: a few tight, wobbly loops at the centre
-for k in range(4):
-    pts = [wp(a, R * (.03 + .022 * k) * rnd.uniform(.75, 1.25)) for a in RAD[::2]]
-    out.append('<polygon points="' + " ".join(f"{x:.1f},{y:.1f}" for x, y in pts) + f'" fill="none" stroke="{SILK}" stroke-opacity=".35" stroke-width=".7"/>')
-# capture spiral: one continuous thread winding outward, sagging between radials
-TURNS, R_IN = 9, .2
-n = len(RAD) * TURNS
-prev = None; dews = []
-for j in range(n + 1):
-    a = RAD[j % len(RAD)] + 2 * math.pi * (j // len(RAD))
-    r = R * (R_IN + (1 - R_IN) * j / n) * rnd.uniform(.985, 1.015)
-    cur = wp(a, r)
-    if prev:
-        L = math.dist(prev, cur)
-        mx, my = (prev[0] + cur[0]) / 2, (prev[1] + cur[1]) / 2
-        c = (CX + (mx - CX) * .97, CY + (my - CY) * .97 + L * .12)
+# 10 rings, one per 10%: every crossing with a radial sits exactly on that percentage
+dews = []
+for k in range(1, 11):
+    r = R * k / 10
+    for j in range(len(RAD)):
+        p0, p1 = wp(RAD[j], r), wp(RAD[(j + 1) % len(RAD)], r)
+        L = math.dist(p0, p1)
+        mx, my = (p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2
+        c = (CX + (mx - CX) * .96, CY + (my - CY) * .96 + L * .1)
         roll = rnd.random()
-        if roll < .07 and j < n - len(RAD):
-            # torn: loose end hangs from the earlier radial and sways
-            l = L * rnd.uniform(.5, 1.0)
-            ux, uy = (cur[0] - prev[0]) / L, (cur[1] - prev[1]) / L
-            e = (prev[0] + ux * l * .3, prev[1] + uy * l * .3 + l * .9)
-            q = (prev[0] + ux * l * .5, prev[1] + uy * l * .5 + l * .2)
-            out.append(sway(f'<path d="M{prev[0]:.1f},{prev[1]:.1f} Q{q[0]:.1f},{q[1]:.1f} {e[0]:.1f},{e[1]:.1f}" fill="none" stroke="{SILK}" stroke-opacity=".6" stroke-width=".9" stroke-linecap="round"/>',
-                            prev[0], prev[1], rnd.uniform(4, 8), rnd.uniform(3.5, 6.5)))
-        elif roll < .1:
-            pass  # missing piece
-        else:
-            out.append(f'<path d="M{prev[0]:.1f},{prev[1]:.1f} Q{c[0]:.1f},{c[1]:.1f} {cur[0]:.1f},{cur[1]:.1f}" fill="none" stroke="{SILK}" stroke-opacity="{.32 + .25 * j / n:.2f}" stroke-width=".8"/>')
-            if rnd.random() < .05:
-                dews.append(qpt(prev, c, cur, rnd.uniform(.3, .7)))
-    prev = cur
+        if k < 10 and roll < .06:
+            l = L * rnd.uniform(.6, 1.0)
+            ux, uy = (p1[0] - p0[0]) / L, (p1[1] - p0[1]) / L
+            e = (p0[0] + ux * l * .3, p0[1] + uy * l * .3 + l * .9)
+            q = (p0[0] + ux * l * .5, p0[1] + uy * l * .5 + l * .2)
+            out.append(sway(f'<path d="M{p0[0]:.1f},{p0[1]:.1f} Q{q[0]:.1f},{q[1]:.1f} {e[0]:.1f},{e[1]:.1f}" fill="none" stroke="{SILK}" stroke-opacity=".6" stroke-width=".9" stroke-linecap="round"/>',
+                            p0[0], p0[1], rnd.uniform(4, 8), rnd.uniform(3.5, 6.5)))
+            continue
+        if k < 10 and roll < .09:
+            continue
+        op = .7 if k == 10 else (.42 if k % 5 == 0 else .3)
+        out.append(f'<path d="M{p0[0]:.1f},{p0[1]:.1f} Q{c[0]:.1f},{c[1]:.1f} {p1[0]:.1f},{p1[1]:.1f}" fill="none" stroke="{SILK}" stroke-opacity="{op}" stroke-width="{1.1 if k == 10 else .8}"/>')
+        if rnd.random() < .04:
+            dews.append(qpt(p0, c, p1, rnd.uniform(.3, .7)))
 # main radials on top, crisp
 for a in MAIN:
-    x, y = wp(a, R * 1.12)
+    x, y = wp(a, R)
     out.append(f'<line x1="{CX}" y1="{CY}" x2="{x:.1f}" y2="{y:.1f}" stroke="#dfe6ff" stroke-opacity=".9" stroke-width="1.5" stroke-linecap="round"/>')
 # dew beads, a few of them glint
 for i, (x, y) in enumerate(dews):
@@ -110,7 +94,7 @@ for i, (x, y) in enumerate(dews):
     glint = '' if i % 4 else f'<animate attributeName="opacity" values=".35;.95;.35" dur="{rnd.uniform(3, 6):.1f}s" begin="-{rnd.uniform(0, 4):.1f}s" repeatCount="indefinite"/>'
     out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rr:.1f}" fill="#eaf1ff" opacity=".6">{glint}</circle>')
 # the spider, hanging off a single dragline in the top-right corner
-SX, SY0, SY = W - 48, 0, 112
+SX, SY0, SY = W - 44, 0, 104
 legs = []
 for side in (-1, 1):
     for k, (dy, reach, bend) in enumerate([(-5, 15, -9), (-1, 17, -4), (3, 16, 5), (7, 13, 10)]):
