@@ -57,39 +57,70 @@ def main(path):
         if el is not None:
             svg.remove(el)
 
-    # ---- wave: every 10 s each column lifts and settles, sweeping along the weeks ----
+    # ---- wave: every 10 s each column grows taller and whitens with its height, sweeping along the weeks ----
+    style_el = svg.find(NS + "style")
+    class_fill = dict(re.findall(r"\.(cont-(?:top|left|right)-\d)\s*\{\s*fill:\s*([^;]+);", style_el.text or ""))
+    PEAK = {"top": "#f6f9ff", "left": "#d9e1f4", "right": "#b9c5e3"}   # white, shaded per face to keep the 3D look
+    LIFT = 40.0                     # how much taller a column gets at the crest (svg units)
+    DUR, START, SWEEP = 10, 3.2, 3.2
+    KT = "0;0.05;0.12;1"            # rise 0.5s, fall 0.7s, rest
+    KS = "0.3 0 0.2 1;0.45 0 0.35 1;0 0 1 1"
+
     cells = []
     for cell in calendar:
         m = re.match(r"translate\(([-\d.]+)[ ,]+([-\d.]+)\)", cell.get("transform", ""))
         if m:
             x, y = float(m.group(1)), float(m.group(2))
             cells.append((cell, x * 0.866 + y * 0.5))   # projection on the "week" direction (30 deg)
+
+    # bounds before the wave (used for framing)
+    ys_top, ys_bottom = [], []
+    for cell, _ in cells:
+        y = float(re.match(r"translate\(([-\d.]+)[ ,]+([-\d.]+)\)", cell.get("transform")).group(2))
+        heights = [float(r.get("height", 0)) for r in cell.findall(NS + "rect")[1:]]
+        ys_top.append(y - 12)
+        ys_bottom.append(y + max(heights or [0]) * 1.15 + 22)
+    top, bottom = min(ys_top), max(ys_bottom)
+
     if cells:
         p_min = min(p for _, p in cells)
         p_max = max(p for _, p in cells)
         for cell, p in cells:
-            t = (p - p_min) / ((p_max - p_min) or 1)
-            inner = ET.Element(NS + "g", {"class": "wave", "style": f"animation-delay:{3.2 + t * 2.4:.2f}s"})
+            begin = START + (p - p_min) / ((p_max - p_min) or 1) * SWEEP
+            timing = {"dur": f"{DUR}s", "begin": f"{begin:.2f}s", "repeatCount": "indefinite",
+                      "calcMode": "spline", "keyTimes": KT, "keySplines": KS}
+            inner = ET.Element(NS + "g")
             for child in list(cell):
                 if child.tag != NS + "animateTransform":   # keep the original grow-in on the outer group
                     cell.remove(child)
                     inner.append(child)
             cell.append(inner)
+            # the whole column moves up by LIFT ...
+            ET.SubElement(inner, NS + "animateTransform", {"attributeName": "transform", "type": "translate",
+                          "values": f"0 0;0 {-LIFT};0 0;0 0", "additive": "sum", **timing})
+            for rect in inner.findall(NS + "rect"):
+                cls = rect.get("class", "")
+                face = cls.split("-")[1] if cls.startswith("cont-") else None
+                base = class_fill.get(cls)
+                if not face or not base:
+                    continue
+                # ... the side faces stretch by the same amount so the foot stays on the floor
+                if face in ("left", "right"):
+                    h = float(rect.get("height", 0))
+                    ET.SubElement(rect, NS + "animate", {"attributeName": "height",
+                                  "values": f"{h};{h + LIFT / 1.15:.2f};{h};{h}", **timing})
+                # colour follows the same curve: the higher it rises, the whiter it gets
+                ET.SubElement(rect, NS + "animate", {"attributeName": "fill",
+                              "values": f"{base};{PEAK[face]};{base};{base}", **timing})
 
-    # ---- calendar bounds -> vertical framing ----
-    ys_top, ys_bottom = [], []
-    for cell in calendar:
-        m = re.match(r"translate\(([-\d.]+)[ ,]+([-\d.]+)\)", cell.get("transform", ""))
-        if not m:
-            continue
-        y = float(m.group(2))
-        heights = [float(r.get("height", 0)) for r in list(cell.iter(NS + "rect"))[1:]]
-        ys_top.append(y - 12)
-        ys_bottom.append(y + max(heights or [0]) * 1.15 + 22)
-    top, bottom = min(ys_top), max(ys_bottom)
-    vb_y = (top + bottom) / 2 - H / 2
-    vb_y = min(vb_y, top - 24)            # room above for the wave lift (22px) without clipping
-    vb_y = max(vb_y, bottom - H + 4)       # ...but keep the bottom bars inside the frame
+    # ---- framing: 16:9, with head-room for the crest; shrink the calendar slightly if needed ----
+    span_top = top - LIFT - 6
+    needed = bottom - span_top
+    scale = min(1.0, (H - 10) / needed)
+    cy = (span_top + bottom) / 2
+    if scale < 1.0:
+        calendar.set("transform", f"translate({W / 2} {cy:.2f}) scale({scale:.4f}) translate({-W / 2} {-cy:.2f})")
+    vb_y = cy - H / 2
 
     svg.set("width", str(W))
     svg.set("height", str(H))
@@ -136,21 +167,10 @@ def main(path):
     css = style.text or ""
     css = re.sub(r"\*\s*\{\s*font-family:[^}]*\}",
                  '* { font-family: "Poppins3D", "Poppins", "Helvetica", "Arial", sans-serif; }', css, count=1)
-    wave_css = """
-.wave { animation: wave 10s ease-in-out infinite; }
-@keyframes wave {
-  0%   { transform: translateY(0); }
-  5%   { transform: translateY(-22px); }
-  11%  { transform: translateY(3px); }
-  15%  { transform: translateY(0); }
-  100% { transform: translateY(0); }
-}
-@media (prefers-reduced-motion: reduce) { .wave { animation: none; } }
-"""
     style.text = (font_face(400, "Poppins-Regular-subset.woff") + "\n" + font_face(500, "Poppins-Medium-subset.woff")
-                  + "\n" + css + wave_css)
+                  + "\n" + css)
 
-    tree.write(path, encoding="unicode", xml_declaration=False)
+    tree.write(path, encoding="utf-8", xml_declaration=True)
     print(f"restyled {path}: viewBox y={vb_y:.1f}, contributions={contrib}")
 
 
