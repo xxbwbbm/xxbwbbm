@@ -1,9 +1,9 @@
-# Cập nhật thẻ "Now playing" từ playlist YouTube "4github" — mỗi lần chạy (mỗi giờ hoặc bấm Run workflow) chuyển sang bài kế tiếp
+# Cập nhật thẻ "Now playing" từ playlist YouTube "4github" — mỗi lần chạy (mỗi 5 phút hoặc bấm Run workflow) chuyển sang bài kế tiếp
 name: Now Playing
 
 on:
   schedule:
-    - cron: "23 * * * *"   # phút 23 mỗi giờ
+    - cron: "*/5 * * * *"   # mỗi 5 phút
   workflow_dispatch:
 
 permissions:
