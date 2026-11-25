@@ -57,6 +57,25 @@ def main(path):
         if el is not None:
             svg.remove(el)
 
+    # ---- wave: every 10 s each column lifts and settles, sweeping along the weeks ----
+    cells = []
+    for cell in calendar:
+        m = re.match(r"translate\(([-\d.]+)[ ,]+([-\d.]+)\)", cell.get("transform", ""))
+        if m:
+            x, y = float(m.group(1)), float(m.group(2))
+            cells.append((cell, x * 0.866 + y * 0.5))   # projection on the "week" direction (30 deg)
+    if cells:
+        p_min = min(p for _, p in cells)
+        p_max = max(p for _, p in cells)
+        for cell, p in cells:
+            t = (p - p_min) / ((p_max - p_min) or 1)
+            inner = ET.Element(NS + "g", {"class": "wave", "style": f"animation-delay:{3.2 + t * 2.4:.2f}s"})
+            for child in list(cell):
+                if child.tag != NS + "animateTransform":   # keep the original grow-in on the outer group
+                    cell.remove(child)
+                    inner.append(child)
+            cell.append(inner)
+
     # ---- calendar bounds -> vertical framing ----
     ys_top, ys_bottom = [], []
     for cell in calendar:
@@ -64,12 +83,13 @@ def main(path):
         if not m:
             continue
         y = float(m.group(2))
-        heights = [float(r.get("height", 0)) for r in cell.findall(NS + "rect")[1:]]
+        heights = [float(r.get("height", 0)) for r in list(cell.iter(NS + "rect"))[1:]]
         ys_top.append(y - 12)
         ys_bottom.append(y + max(heights or [0]) * 1.15 + 22)
     top, bottom = min(ys_top), max(ys_bottom)
     vb_y = (top + bottom) / 2 - H / 2
-    vb_y = min(vb_y, top - 8)  # never clip the tallest bars
+    vb_y = min(vb_y, top - 24)            # room above for the wave lift (22px) without clipping
+    vb_y = max(vb_y, bottom - H + 4)       # ...but keep the bottom bars inside the frame
 
     svg.set("width", str(W))
     svg.set("height", str(H))
@@ -116,7 +136,19 @@ def main(path):
     css = style.text or ""
     css = re.sub(r"\*\s*\{\s*font-family:[^}]*\}",
                  '* { font-family: "Poppins3D", "Poppins", "Helvetica", "Arial", sans-serif; }', css, count=1)
-    style.text = font_face(400, "Poppins-Regular-subset.woff") + "\n" + font_face(500, "Poppins-Medium-subset.woff") + "\n" + css
+    wave_css = """
+.wave { animation: wave 10s ease-in-out infinite; }
+@keyframes wave {
+  0%   { transform: translateY(0); }
+  5%   { transform: translateY(-22px); }
+  11%  { transform: translateY(3px); }
+  15%  { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) { .wave { animation: none; } }
+"""
+    style.text = (font_face(400, "Poppins-Regular-subset.woff") + "\n" + font_face(500, "Poppins-Medium-subset.woff")
+                  + "\n" + css + wave_css)
 
     tree.write(path, encoding="unicode", xml_declaration=False)
     print(f"restyled {path}: viewBox y={vb_y:.1f}, contributions={contrib}")
