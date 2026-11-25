@@ -37,7 +37,7 @@ import random
 rnd = random.Random(23)
 N = len(SKILLS)
 MAIN = [-math.pi / 2 + i * 2 * math.pi / N for i in range(N)]
-SUB = 3                                   # radials per sector (1 main + 2 faint)
+SUB = 1                                   # radials per sector (main threads only)
 RAD = [MAIN[i // SUB] + (i % SUB) * 2 * math.pi / N / SUB + (0 if i % SUB == 0 else rnd.uniform(-.05, .05))
        for i in range(N * SUB)]
 SILK = "#aebcf5"
@@ -68,7 +68,7 @@ for k in range(1, 11):
         p0, p1 = wp(RAD[j], r), wp(RAD[(j + 1) % len(RAD)], r)
         L = math.dist(p0, p1)
         mx, my = (p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2
-        c = (CX + (mx - CX) * .96, CY + (my - CY) * .96 + L * .1)
+        c = (CX + (mx - CX) * .9, CY + (my - CY) * .9 + L * .06)
         roll = rnd.random()
         if k < 10 and roll < .06:
             l = L * rnd.uniform(.6, 1.0)
