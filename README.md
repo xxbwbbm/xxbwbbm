@@ -17,6 +17,8 @@
 
 ### About me
 
+<img align="right" width="230" src="./assets/ascii-art.svg" alt="ASCII art" />
+
 - Student at **University of Information Technology (UIT) – VNU-HCM**, major: **Information Systems**
 - Working on course projects: web development, system analysis & design, databases
 - Getting into scientific research
