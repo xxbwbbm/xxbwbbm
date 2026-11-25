@@ -1,6 +1,6 @@
 <!-- ============ KHUNG HOA HỒNG (trên) ============ -->
 <p align="center">
-  <img width="100%" src="./assets/rose-frame-top.svg" alt="rose vine border" />
+  <img width="100%" src="./assets/rose-frame-top.webp" alt="rose vine border" />
 </p>
 
 <!-- ============ TYPING ============ -->
@@ -40,12 +40,12 @@
 
 ### Contribution calendar (3D)
 
-<!-- Tạo bởi workflow .github/workflows/profile-3d.yml, sau đó scripts/restyle_3d.py chỉnh khung 16:9 + font -->
+<!-- Tạo bởi workflow .github/workflows/profile-3d.yml; scripts/make_3d_anim.py dựng thành WebP động (16:9, sóng, font Poppins) -->
 <p align="center">
-  <img width="100%" src="./profile-3d-contrib/profile-night.svg" alt="3D contribution" />
+  <img width="100%" src="./profile-3d-contrib/profile-night.webp" alt="3D contribution" />
 </p>
 
 <!-- ============ KHUNG HOA HỒNG (dưới) ============ -->
 <p align="center">
-  <img width="100%" src="./assets/rose-frame-bottom.svg" alt="rose vine border" />
+  <img width="100%" src="./assets/rose-frame-bottom.webp" alt="rose vine border" />
 </p>
