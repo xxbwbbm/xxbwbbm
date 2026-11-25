@@ -4,7 +4,7 @@ name: GitHub-Profile-3D-Contrib
 
 on:
   schedule:
-    - cron: "0 18 * * *"   # chạy mỗi ngày lúc 18:00 UTC (01:00 giờ VN)
+    - cron: "5 18 * * *"   # chạy mỗi ngày lúc 18:00 UTC (01:00 giờ VN)
   workflow_dispatch:       # cho phép bấm chạy tay
 
 permissions:

@@ -3,7 +3,7 @@ name: Now Playing
 
 on:
   schedule:
-    - cron: "17 * * * *"   # phút 17 mỗi giờ
+    - cron: "23 * * * *"   # phút 23 mỗi giờ
   workflow_dispatch:
 
 permissions:
