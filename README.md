@@ -28,9 +28,7 @@
 <!-- Thẻ dự án: scripts/projects.py tạo từ scripts/projects.json (workflow profile-3d.yml cập nhật mỗi ngày) -->
 <!-- PROJECTS:START -->
 <p align="center">
-  <a href="https://github.com/xxbwbbm/electronic-products-and-components-management-system"><img width="32%" src="./assets/project-electronic-products-and-components-management-system.svg?v=f2162b579d" alt="Electronics Store Manager: Desktop app for an electronics store: stock, purchasing, invoices and staff." /></a>
-  <a href="https://github.com/lancelotviendangkhoa710/KnowledgeHub_website"><img width="32%" src="./assets/project-knowledgehub-website.svg?v=d7c31b24ce" alt="KnowledgeHub: Knowledge-sharing platform with an AI learning companion." /></a>
-  <a href="https://github.com/TanVi3001/DW-OLAP"><img width="32%" src="./assets/project-dw-olap.svg?v=7de0149a6a" alt="US Traffic Accidents DW: Data warehouse and OLAP cube over 500k US traffic accident records." /></a>
+  <img width="97%" src="./assets/projects-placeholder.svg?v=debef571eb" alt="Projects coming soon" />
 </p>
 <!-- PROJECTS:END -->
 

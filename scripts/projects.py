@@ -3,6 +3,8 @@ plus the README block between the PROJECTS markers (one row of cards, each linki
 
 Live numbers (commit count, last update, stars) come from the GitHub REST API; set GITHUB_TOKEN to
 avoid rate limits (the workflow does). Standard library only.
+Set "hidden": true on an entry to keep it in the file but leave it off the profile;
+with every entry hidden, a "coming soon" placeholder holds the space.
 Usage: python3 scripts/projects.py [--offline]
 """
 import base64
@@ -89,13 +91,61 @@ def card(p, stats):
 '''
 
 
+def placeholder():
+    """Shown while every project is hidden: two half-drawn constellations and a short note."""
+    PW, PH = 1416, 210
+    def constellation(x0, pts, edges, lit):
+        out = []
+        for a, b in edges:
+            (x1, y1), (x2, y2) = pts[a], pts[b]
+            out.append(f'<line x1="{x0 + x1}" y1="{y1}" x2="{x0 + x2}" y2="{y2}" stroke="#5b7bf0" '
+                       f'stroke-opacity=".35" stroke-dasharray="4 7"/>')
+        for i, (x, y) in enumerate(pts):
+            if i in lit:
+                out.append(f'<circle cx="{x0 + x}" cy="{y}" r="10" fill="url(#halo)"/>'
+                           f'<circle class="tw" cx="{x0 + x}" cy="{y}" r="3.2" fill="#eaf1ff"/>')
+            else:
+                out.append(f'<circle cx="{x0 + x}" cy="{y}" r="3.4" fill="none" stroke="#5b7bf0" stroke-opacity=".55"/>')
+        return "".join(out)
+    left = constellation(56, [(10, 120), (74, 70), (150, 92), (214, 46), (262, 132), (140, 164)],
+                         [(0, 1), (1, 2), (2, 3), (2, 5), (3, 4)], {1, 3})
+    right = constellation(1094, [(10, 64), (86, 120), (166, 80), (210, 150), (270, 98)],
+                          [(0, 1), (1, 2), (1, 3), (2, 4)], {2})
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{PW}" height="{PH}" viewBox="0 0 {PW} {PH}">
+<!-- Placeholder from scripts/projects.py: shown while every entry in projects.json has "hidden": true -->
+<defs>
+  <radialGradient id="halo"><stop offset="0" stop-color="#5b7bf0" stop-opacity=".55"/><stop offset="1" stop-color="#5b7bf0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="glow" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#111f69" stop-opacity=".6"/><stop offset="1" stop-color="#04082c" stop-opacity="0"/></radialGradient>
+</defs>
+<style>
+  {font(400, "Poppins-Regular-subset.woff")}
+  {font(500, "Poppins-Medium-subset.woff")}
+  text {{ font-family: "PoppinsProj", "Poppins", "Segoe UI", Helvetica, Arial, sans-serif; }}
+  .tw {{ animation: tw 4s ease-in-out infinite; }}
+  .tw:nth-of-type(2n) {{ animation-delay: -2s; }}
+  @keyframes tw {{ 0%, 100% {{ opacity: .45; }} 50% {{ opacity: 1; }} }}
+  @media (prefers-reduced-motion: reduce) {{ .tw {{ animation: none; }} }}
+</style>
+<rect x=".5" y=".5" width="{PW - 1}" height="{PH - 1}" rx="4.5" fill="#04082c"/>
+<ellipse cx="{PW / 2}" cy="{PH / 2}" rx="420" ry="150" fill="url(#glow)"/>
+{left}
+{right}
+<text x="{PW / 2}" y="96" text-anchor="middle" font-size="34" font-weight="500" fill="#eaf1ff">Projects coming soon</text>
+<text x="{PW / 2}" y="138" text-anchor="middle" font-size="21" fill="#8a92c4">Coursework and research work will be pinned here.</text>
+</svg>
+'''
+
+
 def slug(repo):
     return re.sub(r"[^a-z0-9]+", "-", repo.split("/")[-1].lower()).strip("-")
 
 
 def main(argv):
     offline = "--offline" in argv
-    projects = json.loads((ROOT / "scripts" / "projects.json").read_text(encoding="utf-8"))
+    projects = [p for p in json.loads((ROOT / "scripts" / "projects.json").read_text(encoding="utf-8"))
+                if not p.get("hidden")]
+    for f in (ROOT / "assets").glob("project-*.svg"):      # cards are rebuilt from scratch each run
+        f.unlink()
     cells = []
     for p in projects:
         stats = None
@@ -113,7 +163,14 @@ def main(argv):
                      f'alt="{html.escape(p["title"])}: {html.escape(p["description"])}" /></a>')
         print(f"{p['title']}: {stats}")
 
-    rows = '<p align="center">\n  ' + "\n  ".join(cells) + "\n</p>"
+    if cells:
+        rows = '<p align="center">\n  ' + "\n  ".join(cells) + "\n</p>"
+    else:                                                   # nothing to show yet: reserve the space
+        svg = placeholder()
+        (ROOT / "assets" / "projects-placeholder.svg").write_text(svg, encoding="utf-8")
+        ver = hashlib.sha1(svg.encode()).hexdigest()[:10]
+        rows = ('<p align="center">\n  <img width="97%" src="./assets/projects-placeholder.svg?v=' + ver +
+                '" alt="Projects coming soon" />\n</p>')
     readme = ROOT / "README.md"
     text = readme.read_text(encoding="utf-8")
     start, end = "<!-- PROJECTS:START -->", "<!-- PROJECTS:END -->"

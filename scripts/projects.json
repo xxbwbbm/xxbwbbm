@@ -4,23 +4,40 @@
     "title": "Electronics Store Manager",
     "kind": "Team project",
     "description": "Desktop app for an electronics store: stock, purchasing, invoices and staff.",
-    "stack": ["Java Swing", "Oracle DB", "JFreeChart"],
-    "url": "https://github.com/xxbwbbm/electronic-products-and-components-management-system"
+    "stack": [
+      "Java Swing",
+      "Oracle DB",
+      "JFreeChart"
+    ],
+    "url": "https://github.com/xxbwbbm/electronic-products-and-components-management-system",
+    "hidden": true
   },
   {
     "repo": "lancelotviendangkhoa710/KnowledgeHub_website",
     "title": "KnowledgeHub",
     "kind": "Team project",
     "description": "Knowledge-sharing platform with an AI learning companion.",
-    "stack": ["Next.js", "Laravel", "PostgreSQL", "Docker"],
-    "url": "https://github.com/lancelotviendangkhoa710/KnowledgeHub_website"
+    "stack": [
+      "Next.js",
+      "Laravel",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "url": "https://github.com/lancelotviendangkhoa710/KnowledgeHub_website",
+    "hidden": true
   },
   {
     "repo": "TanVi3001/DW-OLAP",
     "title": "US Traffic Accidents DW",
     "kind": "Team project",
     "description": "Data warehouse and OLAP cube over 500k US traffic accident records.",
-    "stack": ["SQL Server", "SSIS", "SSAS", "Power BI"],
-    "url": "https://github.com/TanVi3001/DW-OLAP"
+    "stack": [
+      "SQL Server",
+      "SSIS",
+      "SSAS",
+      "Power BI"
+    ],
+    "url": "https://github.com/TanVi3001/DW-OLAP",
+    "hidden": true
   }
 ]
