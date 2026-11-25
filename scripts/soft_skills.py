@@ -3,7 +3,7 @@ import base64, math, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SKILLS = [("Analytical thinking", 85), ("Problem-solving", 85), ("Critical thinking", 80),
           ("Self-learning", 75), ("Communication", 75), ("Teamwork", 65),
-          ("Time management", 65), ("Adaptability", 70)]
+          ("Time management", 65), ("Adaptability", 85)]
 W, H, CX, CY, R = 800, 510, 400, 282, 150
 
 def b64(name):
