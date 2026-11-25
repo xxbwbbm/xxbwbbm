@@ -29,13 +29,12 @@
 
 ### GitHub stats
 
+<!-- 3 thẻ trên cùng 1 dòng: width % tính theo tỉ lệ khung của từng thẻ để chiều cao gần bằng nhau -->
 <p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=xxbwbbm&show_icons=false&theme=tokyonight&hide_border=true&bg_color=04082c&title_color=eaf1ff&text_color=cbcddb" />
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=xxbwbbm&layout=compact&theme=tokyonight&hide_border=true&bg_color=04082c&title_color=eaf1ff&text_color=cbcddb" />
-</p>
-<p align="center">
+  <img width="32%" src="https://github-readme-stats.vercel.app/api?username=xxbwbbm&show_icons=false&theme=tokyonight&hide_border=true&bg_color=04082c&title_color=eaf1ff&text_color=cbcddb" />
+  <img width="30%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=xxbwbbm&layout=compact&theme=tokyonight&hide_border=true&bg_color=04082c&title_color=eaf1ff&text_color=cbcddb" />
   <!-- fire=00000000: ẩn biểu tượng ngọn lửa -->
-  <img src="https://streak-stats.demolab.com?user=xxbwbbm&theme=tokyonight&hide_border=true&background=04082c&ring=eaf1ff&fire=00000000&currStreakLabel=eaf1ff&sideNums=cbcddb&currStreakNum=eaf1ff&sideLabels=aab6f0&dates=6a72a8&stroke=172e80" />
+  <img width="35%" src="https://streak-stats.demolab.com?user=xxbwbbm&theme=tokyonight&hide_border=true&background=04082c&ring=eaf1ff&fire=00000000&currStreakLabel=eaf1ff&sideNums=cbcddb&currStreakNum=eaf1ff&sideLabels=aab6f0&dates=6a72a8&stroke=172e80" />
 </p>
 
 ### Contribution calendar (3D)
