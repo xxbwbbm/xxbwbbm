@@ -16,9 +16,9 @@
 </style>
 <rect x=".5" y=".5" width="639" height="299" rx="4.5" fill="url(#bg)"/>
 <text x="34" y="44" class="kind">Personal project</text>
-<text x="606" y="44" text-anchor="end" class="meta">9 commits, updated Aug 2026</text>
+<text x="606" y="44" text-anchor="end" class="meta">11 commits, updated Aug 2026</text>
 <text x="34" y="84" class="title">Personal website</text>
 <text x="34" y="122" class="desc">Hand-written personal site with a dedicated mobile</text><text x="34" y="150" class="desc">layout, deployed on GitHub Pages.</text>
-<line x1="64.0" y1="230" x2="320.0" y2="212" stroke="#5b7bf0" stroke-opacity=".45"/><line x1="320.0" y1="212" x2="576.0" y2="230" stroke="#5b7bf0" stroke-opacity=".45"/>
-<circle cx="64.0" cy="230" r="9" fill="url(#halo)"/><circle cx="64.0" cy="230" r="3" fill="#eaf1ff"/><text x="64.0" y="262" text-anchor="middle" class="tech">HTML</text><circle cx="320.0" cy="212" r="9" fill="url(#halo)"/><circle cx="320.0" cy="212" r="3" fill="#eaf1ff"/><text x="320.0" y="244" text-anchor="middle" class="tech">CSS</text><circle cx="576.0" cy="230" r="9" fill="url(#halo)"/><circle cx="576.0" cy="230" r="3" fill="#eaf1ff"/><text x="576.0" y="262" text-anchor="middle" class="tech">GitHub Pages</text>
+<line x1="92.0" y1="230" x2="320.0" y2="212" stroke="#5b7bf0" stroke-opacity=".45"/><line x1="320.0" y1="212" x2="548.0" y2="230" stroke="#5b7bf0" stroke-opacity=".45"/>
+<circle cx="92.0" cy="230" r="9" fill="url(#halo)"/><circle cx="92.0" cy="230" r="3" fill="#eaf1ff"/><text x="92.0" y="262" text-anchor="middle" class="tech">HTML</text><circle cx="320.0" cy="212" r="9" fill="url(#halo)"/><circle cx="320.0" cy="212" r="3" fill="#eaf1ff"/><text x="320.0" y="244" text-anchor="middle" class="tech">CSS</text><circle cx="548.0" cy="230" r="9" fill="url(#halo)"/><circle cx="548.0" cy="230" r="3" fill="#eaf1ff"/><text x="548.0" y="262" text-anchor="middle" class="tech">GitHub Pages</text>
 </svg>

@@ -27,6 +27,14 @@
 
 <!-- Thẻ dự án: scripts/projects.py tạo từ scripts/projects.json (workflow profile-3d.yml cập nhật mỗi ngày) -->
 <!-- PROJECTS:START -->
+<p align="center">
+  <a href="https://github.com/xxbwbbm/electronic-products-and-components-management-system"><img width="48%" src="./assets/project-electronic-products-and-components-management-system.svg?v=42932f8e19" alt="Electronics Store Manager: Desktop app that runs an electronics store end to end: products, warehouse, procurement, invoices, vouchers, customers and staff." /></a>
+  <a href="https://github.com/lancelotviendangkhoa710/KnowledgeHub_website"><img width="48%" src="./assets/project-knowledgehub-website.svg?v=f36b54697b" alt="KnowledgeHub: Knowledge-sharing platform with an AI learning companion, served by a REST API and containerised for local development." /></a>
+</p>
+<p align="center">
+  <a href="https://github.com/TanVi3001/DW-OLAP"><img width="48%" src="./assets/project-dw-olap.svg?v=210dd6c961" alt="US Traffic Accidents DW: Data warehouse over ~500k US traffic accidents (2016-2023): star schema, ETL pipeline, OLAP cube and dashboards." /></a>
+  <a href="https://xxbwbbm.github.io"><img width="48%" src="./assets/project-xxbwbbm-github-io.svg?v=bee9d40648" alt="Personal website: Hand-written personal site with a dedicated mobile layout, deployed on GitHub Pages." /></a>
+</p>
 <!-- PROJECTS:END -->
 
 ### Tech stack
