@@ -5,7 +5,7 @@
 
 <!-- ============ TYPING ============ -->
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1000&color=EAF1FF&center=true&vCenter=true&width=520&lines=Information+Systems+Student+%40+UIT;Building+web+apps+%26+databases;Exploring+research+(NCKH);Always+learning+something+new" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=18&pause=1200&color=EAF1FF&center=true&vCenter=true&width=820&lines=Always+learning+something+new;No+risk,+no+legacy;Information+Systems+%40UIT+%E2%80%93+VNU-HCM;Young,+wild+%26+free;Apollo+IE+Blue+Dragon+%2F+Black+Carbon+%E2%80%93+Blue+Alcantara+Interior+(EU)" alt="Typing SVG" />
 </p>
 
 <!-- ============ BADGES LIÊN HỆ (không logo) ============ -->
@@ -13,6 +13,11 @@
   <a href="mailto:thuatsichanh@gmail.com"><img src="https://img.shields.io/badge/Gmail-0e113e?style=for-the-badge&labelColor=0e113e&color=0e113e" /></a>
   <a href="https://github.com/xxbwbbm"><img src="https://img.shields.io/badge/GitHub-0e113e?style=for-the-badge&labelColor=0e113e&color=0e113e" /></a>
   <img src="https://komarev.com/ghpvc/?username=xxbwbbm&style=for-the-badge&color=172e80&label=PROFILE+VIEWS" />
+</p>
+
+<!-- ============ NOW PLAYING (đổi bài: sửa tên bài / nghệ sĩ / thời lượng trong assets/now-playing.svg) ============ -->
+<p align="center">
+  <img width="100%" src="./assets/now-playing.svg" alt="Now playing: Young, Wild & Free – Snoop Dogg & Wiz Khalifa ft. Bruno Mars" />
 </p>
 
 ### About me
