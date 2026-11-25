@@ -26,6 +26,10 @@ jobs:
           sudo apt-get install -y -qq librsvg2-bin python3-pil python3-fonttools
       - name: Render animated WebP (16:9, wave, Poppins)
         run: python3 scripts/make_3d_anim.py profile-3d-contrib/profile-night.svg profile-3d-contrib/profile-night.webp
+      - name: Refresh project cards
+        run: python3 scripts/projects.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit & Push
         run: |
           git config user.name github-actions

@@ -20,13 +20,11 @@ jobs:
           sudo apt-get install -y -qq python3-pil
       - name: Build card from playlist
         run: python3 scripts/now_playing.py
-      - name: Draw tonight's moon
-        run: python3 scripts/moon.py
       - name: Commit & Push
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add assets/now-playing.svg assets/now-playing.json assets/moon.svg README.md
+          git add assets/now-playing.svg assets/now-playing.json README.md
           if git commit -m "update now playing"; then
             git pull --rebase -q && git push
           fi

@@ -17,21 +17,17 @@
 
 ### About me
 
-<!-- Trăng đêm nay trên Sài Gòn: scripts/moon.py vẽ lại mỗi giờ (workflow now-playing.yml) -->
-<img align="right" width="36%" src="./assets/moon.svg" alt="Tonight's moon over Saigon" />
-
 - Student at **University of Information Technology (UIT) – VNU-HCM**, major: **Information Systems**
 - Working on course projects: web development, system analysis & design, databases
 - Getting into scientific research
 - Hobbies: video games, video editing, cinematic & science fiction movies
 - Reach me: **thuatsichanh@gmail.com**
 
-<!-- ============ NOW PLAYING: tự đổi bài mỗi giờ từ playlist YouTube "4github" (workflow now-playing.yml cập nhật khối dưới) ============ -->
-<!-- NOW-PLAYING:START -->
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=Ajz-LKbfBjY&list=PLeWdGep5MypQ"><img width="97%" src="./assets/now-playing.svg?v=731de3e07b" alt="Now playing" /></a>
-</p>
-<!-- NOW-PLAYING:END -->
+### Selected projects
+
+<!-- Thẻ dự án: scripts/projects.py tạo từ scripts/projects.json (workflow profile-3d.yml cập nhật mỗi ngày) -->
+<!-- PROJECTS:START -->
+<!-- PROJECTS:END -->
 
 ### Tech stack
 
@@ -56,6 +52,15 @@
 <p align="center">
   <img width="97%" src="./profile-3d-contrib/profile-night.webp" alt="3D contribution" />
 </p>
+
+### On repeat
+
+<!-- ============ NOW PLAYING: tự đổi bài mỗi giờ từ playlist YouTube "4github" (workflow now-playing.yml cập nhật khối dưới) ============ -->
+<!-- NOW-PLAYING:START -->
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=Ajz-LKbfBjY&list=PLeWdGep5MypQ"><img width="97%" src="./assets/now-playing.svg?v=731de3e07b" alt="Now playing" /></a>
+</p>
+<!-- NOW-PLAYING:END -->
 
 <!-- ============ KHUNG HOA HỒNG (dưới) ============ -->
 <p align="center">
