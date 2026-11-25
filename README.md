@@ -25,6 +25,12 @@
 
 <!-- ============ NOW PLAYING: tự đổi bài mỗi giờ từ playlist YouTube "4github" (workflow now-playing.yml cập nhật khối dưới) ============ -->
 <!-- NOW-PLAYING:START -->
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=Ajz-LKbfBjY&list=PLeWdGep5MypQ"><img width="32%" src="./assets/now-playing.svg" alt="Now playing" /></a><br/>
+  <a href="https://www.youtube.com/watch?v=Ajz-LKbfBjY&list=PLeWdGep5MypQ"><img width="4%" src="./assets/np-prev.svg" alt="Previous" /></a>&nbsp;
+  <a href="https://www.youtube.com/watch?v=Ajz-LKbfBjY&list=PLeWdGep5MypQ"><img width="4.6%" src="./assets/np-play.svg" alt="Play on YouTube" /></a>&nbsp;
+  <a href="https://www.youtube.com/watch?v=Ajz-LKbfBjY&list=PLeWdGep5MypQ"><img width="4%" src="./assets/np-next.svg" alt="Next" /></a>
+</p>
 <!-- NOW-PLAYING:END -->
 
 ### Tech stack
