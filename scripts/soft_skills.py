@@ -94,15 +94,18 @@ for i, (x, y) in enumerate(dews):
     rr = rnd.uniform(1.2, 2.2)
     glint = '' if i % 4 else f'<animate attributeName="opacity" values=".35;.95;.35" dur="{rnd.uniform(3, 6):.1f}s" begin="-{rnd.uniform(0, 4):.1f}s" repeatCount="indefinite"/>'
     out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rr:.1f}" fill="#eaf1ff" opacity=".6">{glint}</circle>')
-# loose silk outside the rim: two stray strands hanging off the outer ring
-for j, l in ((2, 70), (5, 55)):
-    p0, p1 = wp(RAD[j], R), wp(RAD[j + 1], R)
-    m = ((p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2)
-    ox, oy = (m[0] - CX) / R, (m[1] - CY) / R
-    e = (m[0] + ox * l * .35, m[1] + l)
-    q = (m[0] + ox * l * .5, m[1] + l * .35)
-    out.append(sway(f'<path d="M{m[0]:.1f},{m[1]:.1f} Q{q[0]:.1f},{q[1]:.1f} {e[0]:.1f},{e[1]:.1f}" fill="none" stroke="{SILK}" stroke-opacity=".55" stroke-width=".9" stroke-linecap="round"/>',
-                    m[0], m[1], 5, rnd.uniform(5, 7)))
+# outer bridge threads: tie the rim to a radial's anchor line, sagging in the middle
+def rim_pt(j, t):
+    p0, p1 = wp(RAD[j % N], R), wp(RAD[(j + 1) % N], R)
+    L = math.dist(p0, p1); mx, my = (p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2
+    return qpt(p0, (CX + (mx - CX) * .9, CY + (my - CY) * .9 + L * .06), p1, t)
+for spoke, seg, t in ((7, 6, .55), (5, 5, .45), (3, 2, .55)):
+    A = wp(MAIN[spoke], R * 1.2)
+    B = rim_pt(seg, t)
+    mx, my = (A[0] + B[0]) / 2, (A[1] + B[1]) / 2
+    ox, oy = (mx - CX), (my - CY); n = math.hypot(ox, oy)
+    c = (mx + ox / n * 9, my + oy / n * 9 + 10)
+    out.append(f'<path d="M{A[0]:.1f},{A[1]:.1f} Q{c[0]:.1f},{c[1]:.1f} {B[0]:.1f},{B[1]:.1f}" fill="none" stroke="{SILK}" stroke-opacity=".8" stroke-width="1.1"/>')
 # ---- data shape: edges bow inward like silk pulled taut between points ----
 P = [pt(i, R * v / 100) for i, (_, v) in enumerate(SKILLS)]
 d = f"M{P[0][0]:.1f},{P[0][1]:.1f}"

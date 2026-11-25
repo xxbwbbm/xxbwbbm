@@ -123,8 +123,9 @@ text { font-family: "PoppinsR", "Poppins", "Segoe UI", Helvetica, Arial, sans-se
 <circle cx="455.7" cy="205.2" r="1.8" fill="#eaf1ff" opacity=".6"><animate attributeName="opacity" values=".35;.95;.35" dur="4.1s" begin="-3.9s" repeatCount="indefinite"/></circle>
 <circle cx="313.0" cy="342.7" r="1.5" fill="#eaf1ff" opacity=".6"></circle>
 <circle cx="552.6" cy="352.4" r="2.1" fill="#eaf1ff" opacity=".6"></circle>
-<g><path d="M556.8,358.8 Q586.7,383.3 577.7,428.8" fill="none" stroke="#aebcf5" stroke-opacity=".55" stroke-width=".9" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-5.0 556.8 358.8;5.0 556.8 358.8;-5.0 556.8 358.8" dur="6.0s" begin="-2.1s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
-<g><path d="M263.2,358.8 Q239.7,378.1 246.8,413.8" fill="none" stroke="#aebcf5" stroke-opacity=".55" stroke-width=".9" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-5.0 263.2 358.8;5.0 263.2 358.8;-5.0 263.2 358.8" dur="5.4s" begin="-3.5s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
+<path d="M264.1,152.1 Q261.2,199.7 273.0,238.0" fill="none" stroke="#aebcf5" stroke-opacity=".8" stroke-width="1.1"/>
+<path d="M264.1,443.9 Q261.3,420.3 273.0,365.8" fill="none" stroke="#aebcf5" stroke-opacity=".8" stroke-width="1.1"/>
+<path d="M555.9,443.9 Q558.7,420.3 547.0,365.8" fill="none" stroke="#aebcf5" stroke-opacity=".8" stroke-width="1.1"/>
 <path d="M410.0,151.8 Q452.4,195.7 513.4,194.6 Q508.8,255.6 547.6,298.0 Q503.8,335.4 501.2,389.2 Q447.4,388.3 410.0,427.0 Q377.6,383.3 330.9,377.1 Q331.7,330.4 298.2,298.0 Q321.8,255.6 306.6,194.6 Q367.6,195.7 410.0,151.8Z" fill="#5b7bf0" opacity=".3" filter="url(#glow)"/>
 <path d="M410.0,151.8 Q452.4,195.7 513.4,194.6 Q508.8,255.6 547.6,298.0 Q503.8,335.4 501.2,389.2 Q447.4,388.3 410.0,427.0 Q377.6,383.3 330.9,377.1 Q331.7,330.4 298.2,298.0 Q321.8,255.6 306.6,194.6 Q367.6,195.7 410.0,151.8Z" fill="url(#fill)" stroke="#eaf1ff" stroke-width="2" stroke-linejoin="round"/>
 <circle cx="410.0" cy="151.8" r="8" fill="#eaf1ff" opacity=".18"/><circle cx="410.0" cy="151.8" r="4" fill="#eaf1ff"/>
