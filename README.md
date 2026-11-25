@@ -19,8 +19,13 @@
 
 <img align="right" width="230" src="./assets/ascii-sword.svg?v=d16092a5" alt="ASCII art" />
 
-<img width="62%" src="./assets/about-me.svg?v=a15c3233" alt="Studying Information Systems at UIT – VNU-HCM; aiming for Data Analyst / Data Engineer / AI Engineer; into scientific research; ENTP" />
-<br><br>
+- Information Systems student at **University of Information Technology (UIT) – VNU-HCM**
+- Heading toward **Data Analyst / Data Engineer / AI Engineer** roles
+- Keen to get involved in scientific research
+- MBTI: **ENTP**
+- Deadly sin of choice: **Ego**
+- Into music, movies, gaming, the gym, video editing and photography
+- Reach me: **thuatsichanh@gmail.com**
 
 <img width="62%" src="./assets/soft-skills.svg?v=40daf7f9" alt="Soft skills radar chart" />
 
