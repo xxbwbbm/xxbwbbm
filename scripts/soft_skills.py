@@ -17,7 +17,7 @@ def poly(r):
 
 avg = round(sum(v for _, v in SKILLS) / len(SKILLS))
 out = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">', f"""<defs>
-<radialGradient id="fill" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#eaf1ff" stop-opacity=".55"/><stop offset=".55" stop-color="#5b7bf0" stop-opacity=".4"/><stop offset="1" stop-color="#3f5bd9" stop-opacity=".25"/></radialGradient>
+<radialGradient id="fill" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#eaf1ff" stop-opacity=".35"/><stop offset=".55" stop-color="#5b7bf0" stop-opacity=".22"/><stop offset="1" stop-color="#3f5bd9" stop-opacity=".14"/></radialGradient>
 <filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7"/></filter>
 </defs>
 <style>
@@ -32,14 +32,30 @@ text {{ font-family: "PoppinsR", "Poppins", "Segoe UI", Helvetica, Arial, sans-s
 <rect x=".5" y=".5" width="{W-1}" height="{H-1}" rx="14" fill="#04082c" stroke="#111f69"/>
 <text class="title" x="28" y="44">Soft skills</text>
 <text class="sub" x="28" y="68">Self-assessed, average {avg}%</text>"""]
-# banded rings, outermost first
-for k in range(5, 0, -1):
-    out.append(f'<polygon points="{poly(R * k / 5)}" fill="{"#070d3a" if k % 2 else "#04082c"}" stroke="#172e80" stroke-width="{1.2 if k == 5 else .8}"/>')
-for i in range(len(SKILLS)):
-    x, y = pt(i, R)
-    out.append(f'<line x1="{CX}" y1="{CY}" x2="{x:.1f}" y2="{y:.1f}" stroke="#172e80" stroke-width=".8"/>')
+# spider-web grid: 18 threads (every 3rd one is a skill axis) + sagging spiral rings
+import random
+rnd = random.Random(7)
+N_SP, N_RING = 18, 9
+ang = [-math.pi / 2 + i * 2 * math.pi / N_SP + (0 if i % 3 == 0 else rnd.uniform(-.06, .06)) for i in range(N_SP)]
+def wp(a, r):
+    return CX + r * math.cos(a), CY + r * math.sin(a)
+for i, a in enumerate(ang):
+    x, y = wp(a, R * rnd.uniform(1.08, 1.2))
+    axis = i % 3 == 0
+    out.append(f'<line x1="{CX}" y1="{CY}" x2="{x:.1f}" y2="{y:.1f}" stroke="#8fa6f5" stroke-opacity="{.7 if axis else .4}" stroke-width="{1.1 if axis else .8}"/>')
+for k in range(1, N_RING + 1):
+    r0 = R * k / N_RING
+    rs = [r0 * rnd.uniform(.96, 1.03) for _ in range(N_SP)]
+    d = []
+    for i in range(N_SP):
+        a1, a2 = ang[i], ang[(i + 1) % N_SP]
+        x1, y1 = wp(a1, rs[i]); x2, y2 = wp(a2, rs[(i + 1) % N_SP])
+        mx, my = (x1 + x2) / 2, (y1 + y2) / 2
+        cx, cy = CX + (mx - CX) * .9, CY + (my - CY) * .9
+        d.append(("M" if i == 0 else "") + (f"{x1:.1f},{y1:.1f} " if i == 0 else "") + f"Q{cx:.1f},{cy:.1f} {x2:.1f},{y2:.1f}")
+    out.append(f'<path d="{" ".join(d)}" fill="none" stroke="#8fa6f5" stroke-opacity="{.45 if k < N_RING else .7}" stroke-width=".9"/>')
 vals = " ".join(f"{x:.1f},{y:.1f}" for x, y in (pt(i, R * v / 100) for i, (_, v) in enumerate(SKILLS)))
-out.append(f'<polygon points="{vals}" fill="#5b7bf0" opacity=".55" filter="url(#glow)"/>')
+out.append(f'<polygon points="{vals}" fill="#5b7bf0" opacity=".3" filter="url(#glow)"/>')
 out.append(f'<polygon points="{vals}" fill="url(#fill)" stroke="#eaf1ff" stroke-width="2" stroke-linejoin="round"/>')
 for i, (name, v) in enumerate(SKILLS):
     x, y = pt(i, R * v / 100)
