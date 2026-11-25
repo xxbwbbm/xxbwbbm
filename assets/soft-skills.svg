@@ -36,7 +36,7 @@ text { font-family: "PoppinsR", "Poppins", "Segoe UI", Helvetica, Arial, sans-se
 <path d="M434.3,322.3 Q420.9,326.0 410.0,332.4" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M410.0,332.4 Q399.1,326.0 385.7,322.3" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M385.7,322.3 Q383.6,310.5 375.6,298.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
-<g><path d="M375.6,298.0 Q379.2,293.1 377.7,309.6" fill="none" stroke="#aebcf5" stroke-opacity=".6" stroke-width=".9" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-6.3 375.6 298.0;6.3 375.6 298.0;-6.3 375.6 298.0" dur="6.0s" begin="-2.0s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
+<path d="M375.6,298.0 Q383.6,288.6 385.7,273.7" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M385.7,273.7 Q399.1,273.2 410.0,263.6" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M410.0,246.4 Q426.4,260.7 446.5,261.5" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M446.5,261.5 Q449.6,284.0 461.6,298.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
@@ -63,31 +63,39 @@ text { font-family: "PoppinsR", "Poppins", "Segoe UI", Helvetica, Arial, sans-se
 <path d="M324.0,298.0 Q343.9,274.6 349.2,237.2" fill="none" stroke="#aebcf5" stroke-opacity="0.42" stroke-width="0.8"/>
 <path d="M349.2,237.2 Q382.6,235.9 410.0,212.0" fill="none" stroke="#aebcf5" stroke-opacity="0.42" stroke-width="0.8"/>
 <path d="M410.0,194.8 Q442.8,223.5 483.0,225.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
-<path d="M483.0,225.0 Q489.3,269.9 513.2,298.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
+<g><path d="M483.0,225.0 Q489.9,246.8 486.8,264.0" fill="none" stroke="#aebcf5" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-7.4 483.0 225.0;7.4 483.0 225.0;-7.4 483.0 225.0" dur="5.3s" begin="-0.3s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
+<g><path d="M513.2,298.0 Q503.6,281.6 507.9,326.6" fill="none" stroke="#aebcf5" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-5.1 513.2 298.0;5.1 513.2 298.0;-5.1 513.2 298.0" dur="3.6s" begin="-0.5s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
 <path d="M513.2,298.0 Q489.3,335.6 483.0,371.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M483.0,371.0 Q442.8,382.0 410.0,401.2" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M410.0,401.2 Q377.2,382.0 337.0,371.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M337.0,371.0 Q330.7,335.6 306.8,298.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
-<path d="M306.8,298.0 Q330.7,269.9 337.0,225.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
+<g><path d="M306.8,298.0 Q318.2,278.7 313.0,331.6" fill="none" stroke="#aebcf5" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-7.2 306.8 298.0;7.2 306.8 298.0;-7.2 306.8 298.0" dur="6.5s" begin="-1.8s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
+<g><path d="M337.0,225.0 Q331.8,241.5 334.2,254.5" fill="none" stroke="#aebcf5" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-5.4 337.0 225.0;5.4 337.0 225.0;-5.4 337.0 225.0" dur="3.6s" begin="-3.4s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
 <path d="M337.0,225.0 Q377.2,223.5 410.0,194.8" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M410.0,177.6 Q448.3,211.0 495.1,212.9" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M495.1,212.9 Q502.5,265.2 530.4,298.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M530.4,298.0 Q502.5,341.8 495.1,383.1" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
-<path d="M495.1,383.1 Q448.3,396.0 410.0,418.4" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
+<g><path d="M495.1,383.1 Q462.5,406.3 477.3,448.3" fill="none" stroke="#aebcf5" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-6.9 495.1 383.1;6.9 495.1 383.1;-6.9 495.1 383.1" dur="4.0s" begin="-2.1s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
+<g><path d="M410.0,418.4 Q424.2,416.7 417.7,440.3" fill="none" stroke="#aebcf5" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-5.1 410.0 418.4;5.1 410.0 418.4;-5.1 410.0 418.4" dur="6.5s" begin="-1.5s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
 <path d="M410.0,418.4 Q371.7,396.0 324.9,383.1" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M324.9,383.1 Q317.5,341.8 289.6,298.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M289.6,298.0 Q317.5,265.2 324.9,212.9" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M324.9,212.9 Q371.7,211.0 410.0,177.6" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M410.0,160.4 Q453.8,198.6 507.3,200.7" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M507.3,200.7 Q515.7,260.5 547.6,298.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
+<path d="M547.6,298.0 Q515.7,348.1 507.3,395.3" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M507.3,395.3 Q453.8,410.0 410.0,435.6" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M410.0,435.6 Q366.2,410.0 312.7,395.3" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M312.7,395.3 Q304.3,348.1 272.4,298.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M272.4,298.0 Q304.3,260.5 312.7,200.7" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
-<path d="M410.0,143.2 Q459.3,186.2 519.5,188.5" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
-<path d="M519.5,188.5 Q528.9,255.9 564.8,298.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
+<path d="M312.7,200.7 Q366.2,198.6 410.0,160.4" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
+<g><path d="M410.0,143.2 Q434.7,160.8 423.5,192.6" fill="none" stroke="#aebcf5" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-7.1 410.0 143.2;7.1 410.0 143.2;-7.1 410.0 143.2" dur="3.5s" begin="-0.1s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
+<g><path d="M519.5,188.5 Q484.0,184.3 500.1,243.3" fill="none" stroke="#aebcf5" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-7.1 519.5 188.5;7.1 519.5 188.5;-7.1 519.5 188.5" dur="3.8s" begin="-2.9s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
+<g><path d="M519.5,188.5 Q531.6,226.6 526.1,256.6" fill="none" stroke="#aebcf5" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-5.6 519.5 188.5;5.6 519.5 188.5;-5.6 519.5 188.5" dur="3.7s" begin="-0.7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
+<g><path d="M564.8,298.0 Q552.0,276.3 557.8,335.8" fill="none" stroke="#aebcf5" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-6.3 564.8 298.0;6.3 564.8 298.0;-6.3 564.8 298.0" dur="5.4s" begin="-4.2s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
 <path d="M564.8,298.0 Q528.9,354.4 519.5,407.5" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
-<path d="M519.5,407.5 Q459.3,424.0 410.0,452.8" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
+<g><path d="M519.5,407.5 Q492.7,426.4 504.9,460.9" fill="none" stroke="#aebcf5" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-7.9 519.5 407.5;7.9 519.5 407.5;-7.9 519.5 407.5" dur="5.4s" begin="-3.7s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
+<g><path d="M410.0,452.8 Q443.4,448.8 428.2,504.5" fill="none" stroke="#aebcf5" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-6.4 410.0 452.8;6.4 410.0 452.8;-6.4 410.0 452.8" dur="3.6s" begin="-0.4s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
 <path d="M410.0,452.8 Q360.7,424.0 300.5,407.5" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M300.5,407.5 Q291.1,354.4 255.2,298.0" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
 <path d="M255.2,298.0 Q291.1,255.9 300.5,188.5" fill="none" stroke="#aebcf5" stroke-opacity="0.3" stroke-width="0.8"/>
@@ -108,9 +116,15 @@ text { font-family: "PoppinsR", "Poppins", "Segoe UI", Helvetica, Arial, sans-se
 <line x1="410" y1="298" x2="288.4" y2="419.6" stroke="#dfe6ff" stroke-opacity=".9" stroke-width="1.5" stroke-linecap="round"/>
 <line x1="410" y1="298" x2="238.0" y2="298.0" stroke="#dfe6ff" stroke-opacity=".9" stroke-width="1.5" stroke-linecap="round"/>
 <line x1="410" y1="298" x2="288.4" y2="176.4" stroke="#dfe6ff" stroke-opacity=".9" stroke-width="1.5" stroke-linecap="round"/>
-<circle cx="439.2" cy="246.0" r="1.4" fill="#eaf1ff" opacity=".6"><animate attributeName="opacity" values=".35;.95;.35" dur="5.9s" begin="-2.5s" repeatCount="indefinite"/></circle>
-<circle cx="314.1" cy="345.4" r="1.2" fill="#eaf1ff" opacity=".6"></circle>
-<g><line x1="776" y1="0" x2="776" y2="95" stroke="#aebcf5" stroke-opacity=".55" stroke-width=".8"/><path d="M773,99 Q767.0,84.0 761.0,90.0" fill="none" stroke="#dfe6ff" stroke-width="1.1" stroke-linecap="round"/><path d="M773,103 Q765.8,93.0 759.0,99.0" fill="none" stroke="#dfe6ff" stroke-width="1.1" stroke-linecap="round"/><path d="M773,107 Q766.4,106.0 760.0,112.0" fill="none" stroke="#dfe6ff" stroke-width="1.1" stroke-linecap="round"/><path d="M773,111 Q768.2,115.0 763.0,121.0" fill="none" stroke="#dfe6ff" stroke-width="1.1" stroke-linecap="round"/><path d="M779,99 Q785.0,84.0 791.0,90.0" fill="none" stroke="#dfe6ff" stroke-width="1.1" stroke-linecap="round"/><path d="M779,103 Q786.2,93.0 793.0,99.0" fill="none" stroke="#dfe6ff" stroke-width="1.1" stroke-linecap="round"/><path d="M779,107 Q785.6,106.0 792.0,112.0" fill="none" stroke="#dfe6ff" stroke-width="1.1" stroke-linecap="round"/><path d="M779,111 Q783.8,115.0 789.0,121.0" fill="none" stroke="#dfe6ff" stroke-width="1.1" stroke-linecap="round"/><ellipse cx="776" cy="101" rx="3.6" ry="3.2" fill="#dfe6ff"/><ellipse cx="776" cy="110" rx="5.4" ry="6.8" fill="#dfe6ff"/><path d="M776,106 l-2,3 2,3 2,-3z" fill="#04082c"/><animateTransform attributeName="transform" type="rotate" values="-2.2 776.0 0.0;2.2 776.0 0.0;-2.2 776.0 0.0" dur="7.5s" begin="-6.1s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
+<circle cx="368.9" cy="279.9" r="1.4" fill="#eaf1ff" opacity=".6"><animate attributeName="opacity" values=".35;.95;.35" dur="4.7s" begin="-3.0s" repeatCount="indefinite"/></circle>
+<circle cx="427.8" cy="241.3" r="1.7" fill="#eaf1ff" opacity=".6"></circle>
+<circle cx="427.6" cy="357.8" r="1.9" fill="#eaf1ff" opacity=".6"></circle>
+<circle cx="391.4" cy="357.3" r="2.2" fill="#eaf1ff" opacity=".6"></circle>
+<circle cx="455.7" cy="205.2" r="1.8" fill="#eaf1ff" opacity=".6"><animate attributeName="opacity" values=".35;.95;.35" dur="4.1s" begin="-3.9s" repeatCount="indefinite"/></circle>
+<circle cx="313.0" cy="342.7" r="1.5" fill="#eaf1ff" opacity=".6"></circle>
+<circle cx="552.6" cy="352.4" r="2.1" fill="#eaf1ff" opacity=".6"></circle>
+<g><path d="M556.8,358.8 Q586.7,383.3 577.7,428.8" fill="none" stroke="#aebcf5" stroke-opacity=".55" stroke-width=".9" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-5.0 556.8 358.8;5.0 556.8 358.8;-5.0 556.8 358.8" dur="6.0s" begin="-2.1s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
+<g><path d="M263.2,358.8 Q239.7,378.1 246.8,413.8" fill="none" stroke="#aebcf5" stroke-opacity=".55" stroke-width=".9" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" values="-5.0 263.2 358.8;5.0 263.2 358.8;-5.0 263.2 358.8" dur="5.4s" begin="-3.5s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>
 <path d="M410.0,151.8 Q452.4,195.7 513.4,194.6 Q508.8,255.6 547.6,298.0 Q503.8,335.4 501.2,389.2 Q447.4,388.3 410.0,427.0 Q377.6,383.3 330.9,377.1 Q331.7,330.4 298.2,298.0 Q321.8,255.6 306.6,194.6 Q367.6,195.7 410.0,151.8Z" fill="#5b7bf0" opacity=".3" filter="url(#glow)"/>
 <path d="M410.0,151.8 Q452.4,195.7 513.4,194.6 Q508.8,255.6 547.6,298.0 Q503.8,335.4 501.2,389.2 Q447.4,388.3 410.0,427.0 Q377.6,383.3 330.9,377.1 Q331.7,330.4 298.2,298.0 Q321.8,255.6 306.6,194.6 Q367.6,195.7 410.0,151.8Z" fill="url(#fill)" stroke="#eaf1ff" stroke-width="2" stroke-linejoin="round"/>
 <circle cx="410.0" cy="151.8" r="8" fill="#eaf1ff" opacity=".18"/><circle cx="410.0" cy="151.8" r="4" fill="#eaf1ff"/>

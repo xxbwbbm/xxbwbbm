@@ -62,6 +62,7 @@ for i, a in enumerate(RAD):
         out.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{SILK}" stroke-opacity=".2" stroke-width=".7"/>')
 # 10 rings, one per 10%: every crossing with a radial sits exactly on that percentage
 dews = []
+SNAP = set(rnd.sample([(k, j) for k in (6, 7, 8, 9) for j in range(len(RAD))], 6))
 for k in range(1, 11):
     r = R * k / 10
     for j in range(len(RAD)):
@@ -70,15 +71,15 @@ for k in range(1, 11):
         mx, my = (p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2
         c = (CX + (mx - CX) * .9, CY + (my - CY) * .9 + L * .06)
         roll = rnd.random()
-        if k < 10 and roll < .06:
-            l = L * rnd.uniform(.6, 1.0)
-            ux, uy = (p1[0] - p0[0]) / L, (p1[1] - p0[1]) / L
-            e = (p0[0] + ux * l * .3, p0[1] + uy * l * .3 + l * .9)
-            q = (p0[0] + ux * l * .5, p0[1] + uy * l * .5 + l * .2)
-            out.append(sway(f'<path d="M{p0[0]:.1f},{p0[1]:.1f} Q{q[0]:.1f},{q[1]:.1f} {e[0]:.1f},{e[1]:.1f}" fill="none" stroke="{SILK}" stroke-opacity=".6" stroke-width=".9" stroke-linecap="round"/>',
-                            p0[0], p0[1], rnd.uniform(4, 8), rnd.uniform(3.5, 6.5)))
-            continue
-        if k < 10 and roll < .09:
+        if (k, j) in SNAP:
+            # snapped thread: breaks at a random point, both halves fall and hang from their anchors
+            t = rnd.uniform(.3, .7)
+            for (ax, ay), (bx, by), l in ((p0, p1, L * t), (p1, p0, L * (1 - t))):
+                ux, uy = (bx - ax) / L, (by - ay) / L
+                e = (ax + ux * l * .3, ay + uy * l * .3 + l * .9)
+                q = (ax + ux * l * .55, ay + uy * l * .55 + l * .15)
+                out.append(sway(f'<path d="M{ax:.1f},{ay:.1f} Q{q[0]:.1f},{q[1]:.1f} {e[0]:.1f},{e[1]:.1f}" fill="none" stroke="{SILK}" stroke-opacity=".75" stroke-width="1" stroke-linecap="round"/>',
+                                ax, ay, rnd.uniform(4, 8), rnd.uniform(3.5, 6.5)))
             continue
         op = .7 if k == 10 else (.42 if k % 5 == 0 else .3)
         out.append(f'<path d="M{p0[0]:.1f},{p0[1]:.1f} Q{c[0]:.1f},{c[1]:.1f} {p1[0]:.1f},{p1[1]:.1f}" fill="none" stroke="{SILK}" stroke-opacity="{op}" stroke-width="{1.1 if k == 10 else .8}"/>')
@@ -93,19 +94,15 @@ for i, (x, y) in enumerate(dews):
     rr = rnd.uniform(1.2, 2.2)
     glint = '' if i % 4 else f'<animate attributeName="opacity" values=".35;.95;.35" dur="{rnd.uniform(3, 6):.1f}s" begin="-{rnd.uniform(0, 4):.1f}s" repeatCount="indefinite"/>'
     out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rr:.1f}" fill="#eaf1ff" opacity=".6">{glint}</circle>')
-# the spider, hanging off a single dragline in the top-right corner
-SX, SY0, SY = W - 44, 0, 104
-legs = []
-for side in (-1, 1):
-    for k, (dy, reach, bend) in enumerate([(-5, 15, -9), (-1, 17, -4), (3, 16, 5), (7, 13, 10)]):
-        x0, y0 = SX + side * 3, SY + dy
-        kx, ky = SX + side * reach * .6, SY + dy + bend - 6
-        fx, fy = SX + side * reach, SY + dy + bend
-        legs.append(f'<path d="M{x0},{y0} Q{kx:.1f},{ky:.1f} {fx:.1f},{fy:.1f}" fill="none" stroke="#dfe6ff" stroke-width="1.1" stroke-linecap="round"/>')
-spider = (f'<line x1="{SX}" y1="{SY0}" x2="{SX}" y2="{SY - 9}" stroke="{SILK}" stroke-opacity=".55" stroke-width=".8"/>' + "".join(legs) +
-          f'<ellipse cx="{SX}" cy="{SY - 3}" rx="3.6" ry="3.2" fill="#dfe6ff"/><ellipse cx="{SX}" cy="{SY + 6}" rx="5.4" ry="6.8" fill="#dfe6ff"/>'
-          f'<path d="M{SX},{SY + 2} l-2,3 2,3 2,-3z" fill="#04082c"/>')
-out.append(sway(spider, SX, SY0, 2.2, 7.5))
+# loose silk outside the rim: two stray strands hanging off the outer ring
+for j, l in ((2, 70), (5, 55)):
+    p0, p1 = wp(RAD[j], R), wp(RAD[j + 1], R)
+    m = ((p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2)
+    ox, oy = (m[0] - CX) / R, (m[1] - CY) / R
+    e = (m[0] + ox * l * .35, m[1] + l)
+    q = (m[0] + ox * l * .5, m[1] + l * .35)
+    out.append(sway(f'<path d="M{m[0]:.1f},{m[1]:.1f} Q{q[0]:.1f},{q[1]:.1f} {e[0]:.1f},{e[1]:.1f}" fill="none" stroke="{SILK}" stroke-opacity=".55" stroke-width=".9" stroke-linecap="round"/>',
+                    m[0], m[1], 5, rnd.uniform(5, 7)))
 # ---- data shape: edges bow inward like silk pulled taut between points ----
 P = [pt(i, R * v / 100) for i, (_, v) in enumerate(SKILLS)]
 d = f"M{P[0][0]:.1f},{P[0][1]:.1f}"
