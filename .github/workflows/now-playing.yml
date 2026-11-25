@@ -1,4 +1,4 @@
-# Cập nhật thẻ "Now playing" từ playlist YouTube "4github" — mỗi giờ đổi một bài
+# Cập nhật thẻ "Now playing" từ playlist YouTube "4github" — mỗi lần chạy (mỗi giờ hoặc bấm Run workflow) chuyển sang bài kế tiếp
 name: Now Playing
 
 on:
@@ -24,7 +24,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add assets/now-playing.svg README.md
+          git add assets/now-playing.svg assets/now-playing.json README.md
           if git commit -m "update now playing"; then
             git pull --rebase -q && git push
           fi

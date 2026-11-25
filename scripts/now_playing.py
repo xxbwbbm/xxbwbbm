@@ -1,6 +1,6 @@
 """Build assets/now-playing.svg from a public YouTube playlist.
 
-Reads the playlist's RSS feed, picks one video (rotating every hour), uses its thumbnail as the
+Reads the playlist's RSS feed, picks one video (moving to the next one on every run), uses its thumbnail as the
 vinyl label and splits the video title into song / artist.
 
 Usage: python3 scripts/now_playing.py [--feed-file feed.xml] [--thumb-file img.jpg]
@@ -10,10 +10,10 @@ import base64
 import hashlib
 import html
 import io
+import json
 import pathlib
 import re
 import sys
-import time
 import urllib.request
 import xml.etree.ElementTree as ET
 
@@ -23,6 +23,7 @@ PLAYLIST_ID = "PLeWdGep5MypQ"
 FEED_URL = f"https://www.youtube.com/feeds/videos.xml?playlist_id={PLAYLIST_ID}"
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets" / "now-playing.svg"
+STATE = ROOT / "assets" / "now-playing.json"   # remembers the last video shown
 FONTS = ROOT / "assets" / "fonts"
 W, H = 1416, 195
 NS = {"a": "http://www.w3.org/2005/Atom", "media": "http://search.yahoo.com/mrss/",
@@ -172,7 +173,15 @@ def main(argv):
     if not entries:
         print("playlist feed is empty; keeping the current card")
         return
-    index = (int(time.time()) // 3600) % len(entries)          # a different video every hour
+    # every run moves on to the next video in the playlist (scheduled hourly, or "Run workflow" for now)
+    last = None
+    if STATE.exists():
+        try:
+            last = json.loads(STATE.read_text(encoding="utf-8")).get("video")
+        except ValueError:
+            last = None
+    ids = [e["id"] for e in entries]
+    index = (ids.index(last) + 1) % len(entries) if last in ids else 0
     pick = entries[index]
     song, artist = split_title(pick["title"], pick["channel"])
     thumb = pathlib.Path(args["--thumb-file"]).read_bytes() if "--thumb-file" in args else fetch(pick["thumb"])
@@ -180,6 +189,7 @@ def main(argv):
     OUT.write_text(svg, encoding="utf-8")
     # cache-busting: the image URL changes whenever the card changes, so GitHub can't keep an old copy
     update_readme(entries, index, hashlib.sha1(svg.encode()).hexdigest()[:10])
+    STATE.write_text(json.dumps({"video": pick["id"], "title": pick["title"]}, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"now playing [{index + 1}/{len(entries)}]: {song} — {artist}")
 
 
