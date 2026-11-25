@@ -1,8 +1,8 @@
 """Radar ("spider") chart of soft skills -> assets/soft-skills.svg. Edit SKILLS and rerun."""
 import base64, math, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SKILLS = [("Creative thinking", 75), ("Problem-solving", 65), ("Adaptability", 85),
-          ("Communication", 90), ("Attention to detail", 95), ("Teamwork", 50)]
+SKILLS = [("Creative thinking", 80), ("Problem-solving", 90), ("Adaptability", 85),
+          ("Communication", 80), ("Attention to detail", 75), ("Teamwork", 50)]
 W, H, CX, CY, R = 700, 470, 350, 240, 160
 
 def b64(name):
