@@ -15,11 +15,6 @@
   <img src="https://komarev.com/ghpvc/?username=xxbwbbm&style=for-the-badge&color=172e80&label=PROFILE+VIEWS" />
 </p>
 
-<!-- ============ NOW PLAYING (đổi bài: sửa tên bài / nghệ sĩ / thời lượng trong assets/now-playing.svg) ============ -->
-<p align="center">
-  <img width="100%" src="./assets/now-playing.svg" alt="Now playing: Young, Wild & Free – Snoop Dogg & Wiz Khalifa ft. Bruno Mars" />
-</p>
-
 ### About me
 
 - Student at **University of Information Technology (UIT) – VNU-HCM**, major: **Information Systems**
