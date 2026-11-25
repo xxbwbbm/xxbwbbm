@@ -27,7 +27,7 @@
 - Into music, movies, gaming, the gym, video editing and photography
 - Reach me: **thuatsichanh@gmail.com**
 
-<img width="62%" src="./assets/soft-skills.svg?v=8f87488d" alt="Soft skills radar chart" />
+<img width="62%" src="./assets/soft-skills.svg?v=8a2fb9d7" alt="Soft skills radar chart" />
 
 <br clear="all" />
 
