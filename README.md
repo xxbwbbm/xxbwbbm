@@ -40,16 +40,9 @@
 
 ### Contribution calendar (3D)
 
-<!-- Cần workflow .github/workflows/profile-3d.yml + file profile-3d-night.json -->
+<!-- Tạo bởi workflow .github/workflows/profile-3d.yml, sau đó scripts/restyle_3d.py chỉnh khung 16:9 + font -->
 <p align="center">
   <img width="100%" src="./profile-3d-contrib/profile-night.svg" alt="3D contribution" />
-</p>
-
-### Contributions
-
-<!-- Cần thêm workflow .github/workflows/snake.yml (xem hướng dẫn kèm theo) -->
-<p align="center">
-  <img src="https://raw.githubusercontent.com/xxbwbbm/xxbwbbm/output/snake.svg" alt="snake" />
 </p>
 
 <!-- ============ KHUNG HOA HỒNG (dưới) ============ -->
