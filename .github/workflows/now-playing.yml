@@ -24,7 +24,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add assets/now-playing.svg
+          git add assets/now-playing.svg assets/np-*.svg README.md
           if git commit -m "update now playing"; then
             git pull --rebase -q && git push
           fi

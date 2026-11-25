@@ -23,10 +23,9 @@
 - Hobby: Video games, Video Edited, Cinematic & Science Fiction Movie
 - Reach me: **thuatsichanh@gmail.com**
 
-<!-- ============ NOW PLAYING: tự đổi bài mỗi giờ từ playlist YouTube "4github" (workflow now-playing.yml) ============ -->
-<p align="center">
-  <a href="https://www.youtube.com/playlist?list=PLeWdGep5MypQ"><img width="50%" src="./assets/now-playing.svg" alt="Now playing from my YouTube playlist" /></a>
-</p>
+<!-- ============ NOW PLAYING: tự đổi bài mỗi giờ từ playlist YouTube "4github" (workflow now-playing.yml cập nhật khối dưới) ============ -->
+<!-- NOW-PLAYING:START -->
+<!-- NOW-PLAYING:END -->
 
 ### Tech stack
 
