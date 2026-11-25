@@ -32,47 +32,106 @@ text {{ font-family: "PoppinsR", "Poppins", "Segoe UI", Helvetica, Arial, sans-s
 </style>
 <text class="title" x="28" y="44">Soft skills</text>
 <text class="sub" x="28" y="68">Self-assessed, average {avg}%</text>"""]
-# spider-web grid: 6 main threads (the skill axes) + randomly spaced, sagging rings
+# ---- orb web: anchor lines, radials, irregular hub, one capture spiral, dew, torn strands ----
 import random
-rnd = random.Random(11)
-N_SP = len(SKILLS)
-ang = [-math.pi / 2 + i * 2 * math.pi / N_SP for i in range(N_SP)]
+rnd = random.Random(23)
+N = len(SKILLS)
+MAIN = [-math.pi / 2 + i * 2 * math.pi / N for i in range(N)]
+SUB = 3                                   # radials per sector (1 main + 2 faint)
+RAD = [MAIN[i // SUB] + (i % SUB) * 2 * math.pi / N / SUB + (0 if i % SUB == 0 else rnd.uniform(-.05, .05))
+       for i in range(N * SUB)]
+SILK = "#aebcf5"
 def wp(a, r):
     return CX + r * math.cos(a), CY + r * math.sin(a)
-# ring radii per thread: random gaps, kept in order so rings never cross
-gaps = [rnd.uniform(.6, 1.4) for _ in range(9)]
-base = [sum(gaps[:k + 1]) / sum(gaps) for k in range(9)]
-for k, b0 in enumerate(base):
-    rs = [R * min(1.0, max(.05, b0 + rnd.uniform(-.035, .035))) for _ in range(N_SP)] if k < 8 else [R] * N_SP
-    for i in range(N_SP):
-        x1, y1 = wp(ang[i], rs[i]); x2, y2 = wp(ang[(i + 1) % N_SP], rs[(i + 1) % N_SP])
-        L = math.dist((x1, y1), (x2, y2))
-        # gravity: threads bow slightly inward and droop downward
-        sag = rnd.uniform(.86, .95)
-        mx, my = (x1 + x2) / 2, (y1 + y2) / 2
-        cx, cy = CX + (mx - CX) * sag, CY + (my - CY) * sag + L * rnd.uniform(.12, .22)
-        op = .5 if k < 8 else .7
+def qpt(p0, c, p1, t):
+    return ((1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * c[0] + t * t * p1[0],
+            (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * c[1] + t * t * p1[1])
+def sway(inner, ax, ay, amp, dur):
+    return (f'<g>{inner}<animateTransform attributeName="transform" type="rotate" '
+            f'values="{-amp:.1f} {ax:.1f} {ay:.1f};{amp:.1f} {ax:.1f} {ay:.1f};{-amp:.1f} {ax:.1f} {ay:.1f}" dur="{dur:.1f}s" '
+            f'begin="-{rnd.uniform(0, dur):.1f}s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>')
+# bridge / anchor threads running off toward the edges of the frame
+for a in MAIN:
+    x1, y1 = wp(a, R * 1.12)
+    x2, y2 = wp(a + rnd.uniform(-.08, .08), R * rnd.uniform(1.5, 1.9))
+    out.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{SILK}" stroke-opacity=".22" stroke-width=".8"/>')
+# frame thread: slack polygon joining the radial tips, drooping under its own weight
+tips = [wp(a, R * 1.12) for a in MAIN]
+d = f"M{tips[0][0]:.1f},{tips[0][1]:.1f}"
+for i in range(N):
+    p0, p1 = tips[i], tips[(i + 1) % N]
+    mx, my = (p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2
+    d += f" Q{CX + (mx - CX) * .93:.1f},{CY + (my - CY) * .93 + 10:.1f} {p1[0]:.1f},{p1[1]:.1f}"
+out.append(f'<path d="{d}" fill="none" stroke="{SILK}" stroke-opacity=".45" stroke-width="1"/>')
+# faint secondary radials (start partway out, like real orb webs)
+for i, a in enumerate(RAD):
+    if i % SUB:
+        x1, y1 = wp(a, R * rnd.uniform(.2, .45)); x2, y2 = wp(a, R * rnd.uniform(1.0, 1.08))
+        out.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{SILK}" stroke-opacity=".2" stroke-width=".7"/>')
+# irregular hub: a few tight, wobbly loops at the centre
+for k in range(4):
+    pts = [wp(a, R * (.03 + .022 * k) * rnd.uniform(.75, 1.25)) for a in RAD[::2]]
+    out.append('<polygon points="' + " ".join(f"{x:.1f},{y:.1f}" for x, y in pts) + f'" fill="none" stroke="{SILK}" stroke-opacity=".35" stroke-width=".7"/>')
+# capture spiral: one continuous thread winding outward, sagging between radials
+TURNS, R_IN = 9, .2
+n = len(RAD) * TURNS
+prev = None; dews = []
+for j in range(n + 1):
+    a = RAD[j % len(RAD)] + 2 * math.pi * (j // len(RAD))
+    r = R * (R_IN + (1 - R_IN) * j / n) * rnd.uniform(.985, 1.015)
+    cur = wp(a, r)
+    if prev:
+        L = math.dist(prev, cur)
+        mx, my = (prev[0] + cur[0]) / 2, (prev[1] + cur[1]) / 2
+        c = (CX + (mx - CX) * .97, CY + (my - CY) * .97 + L * .12)
         roll = rnd.random()
-        if k < 8 and roll < .32:
-            # torn thread: one or both loose ends hang from their anchor and sway
-            ends = [((x1, y1), (x2, y2))] if roll < .2 else [((x1, y1), (x2, y2)), ((x2, y2), (x1, y1))]
-            for (ax, ay), (bx, by) in ends:
-                l = L * rnd.uniform(.35, .7)
-                ux, uy = (bx - ax) / L, (by - ay) / L
-                ex, ey = ax + ux * l * .35, ay + uy * l * .35 + l * .85
-                qx, qy = ax + ux * l * .55, ay + uy * l * .55 + l * .15
-                amp, dur = rnd.uniform(3, 7), rnd.uniform(3.5, 6.5)
-                out.append(f'<g><path d="M{ax:.1f},{ay:.1f} Q{qx:.1f},{qy:.1f} {ex:.1f},{ey:.1f}" fill="none" stroke="#8fa6f5" stroke-opacity="{op + .15}" stroke-width="1.1" stroke-linecap="round"/>'
-                           f'<animateTransform attributeName="transform" type="rotate" values="{-amp:.1f} {ax:.1f} {ay:.1f};{amp:.1f} {ax:.1f} {ay:.1f};{-amp:.1f} {ax:.1f} {ay:.1f}" '
-                           f'dur="{dur:.1f}s" begin="-{rnd.uniform(0, dur):.1f}s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/></g>')
-            continue
-        out.append(f'<path d="M{x1:.1f},{y1:.1f} Q{cx:.1f},{cy:.1f} {x2:.1f},{y2:.1f}" fill="none" stroke="#8fa6f5" stroke-opacity="{op}" stroke-width="1"/>')
-for a in ang:
+        if roll < .07 and j < n - len(RAD):
+            # torn: loose end hangs from the earlier radial and sways
+            l = L * rnd.uniform(.5, 1.0)
+            ux, uy = (cur[0] - prev[0]) / L, (cur[1] - prev[1]) / L
+            e = (prev[0] + ux * l * .3, prev[1] + uy * l * .3 + l * .9)
+            q = (prev[0] + ux * l * .5, prev[1] + uy * l * .5 + l * .2)
+            out.append(sway(f'<path d="M{prev[0]:.1f},{prev[1]:.1f} Q{q[0]:.1f},{q[1]:.1f} {e[0]:.1f},{e[1]:.1f}" fill="none" stroke="{SILK}" stroke-opacity=".6" stroke-width=".9" stroke-linecap="round"/>',
+                            prev[0], prev[1], rnd.uniform(4, 8), rnd.uniform(3.5, 6.5)))
+        elif roll < .1:
+            pass  # missing piece
+        else:
+            out.append(f'<path d="M{prev[0]:.1f},{prev[1]:.1f} Q{c[0]:.1f},{c[1]:.1f} {cur[0]:.1f},{cur[1]:.1f}" fill="none" stroke="{SILK}" stroke-opacity="{.32 + .25 * j / n:.2f}" stroke-width=".8"/>')
+            if rnd.random() < .05:
+                dews.append(qpt(prev, c, cur, rnd.uniform(.3, .7)))
+    prev = cur
+# main radials on top, crisp
+for a in MAIN:
     x, y = wp(a, R * 1.12)
-    out.append(f'<line x1="{CX}" y1="{CY}" x2="{x:.1f}" y2="{y:.1f}" stroke="#cbd5ff" stroke-opacity=".9" stroke-width="1.6" stroke-linecap="round"/>')
-vals = " ".join(f"{x:.1f},{y:.1f}" for x, y in (pt(i, R * v / 100) for i, (_, v) in enumerate(SKILLS)))
-out.append(f'<polygon points="{vals}" fill="#5b7bf0" opacity=".3" filter="url(#glow)"/>')
-out.append(f'<polygon points="{vals}" fill="url(#fill)" stroke="#eaf1ff" stroke-width="2" stroke-linejoin="round"/>')
+    out.append(f'<line x1="{CX}" y1="{CY}" x2="{x:.1f}" y2="{y:.1f}" stroke="#dfe6ff" stroke-opacity=".9" stroke-width="1.5" stroke-linecap="round"/>')
+# dew beads, a few of them glint
+for i, (x, y) in enumerate(dews):
+    rr = rnd.uniform(1.2, 2.2)
+    glint = '' if i % 4 else f'<animate attributeName="opacity" values=".35;.95;.35" dur="{rnd.uniform(3, 6):.1f}s" begin="-{rnd.uniform(0, 4):.1f}s" repeatCount="indefinite"/>'
+    out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rr:.1f}" fill="#eaf1ff" opacity=".6">{glint}</circle>')
+# the spider, hanging off a single dragline in the top-right corner
+SX, SY0, SY = W - 48, 0, 112
+legs = []
+for side in (-1, 1):
+    for k, (dy, reach, bend) in enumerate([(-5, 15, -9), (-1, 17, -4), (3, 16, 5), (7, 13, 10)]):
+        x0, y0 = SX + side * 3, SY + dy
+        kx, ky = SX + side * reach * .6, SY + dy + bend - 6
+        fx, fy = SX + side * reach, SY + dy + bend
+        legs.append(f'<path d="M{x0},{y0} Q{kx:.1f},{ky:.1f} {fx:.1f},{fy:.1f}" fill="none" stroke="#dfe6ff" stroke-width="1.1" stroke-linecap="round"/>')
+spider = (f'<line x1="{SX}" y1="{SY0}" x2="{SX}" y2="{SY - 9}" stroke="{SILK}" stroke-opacity=".55" stroke-width=".8"/>' + "".join(legs) +
+          f'<ellipse cx="{SX}" cy="{SY - 3}" rx="3.6" ry="3.2" fill="#dfe6ff"/><ellipse cx="{SX}" cy="{SY + 6}" rx="5.4" ry="6.8" fill="#dfe6ff"/>'
+          f'<path d="M{SX},{SY + 2} l-2,3 2,3 2,-3z" fill="#04082c"/>')
+out.append(sway(spider, SX, SY0, 2.2, 7.5))
+# ---- data shape: edges bow inward like silk pulled taut between points ----
+P = [pt(i, R * v / 100) for i, (_, v) in enumerate(SKILLS)]
+d = f"M{P[0][0]:.1f},{P[0][1]:.1f}"
+for i in range(N):
+    p0, p1 = P[i], P[(i + 1) % N]
+    mx, my = (p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2
+    d += f" Q{CX + (mx - CX) * .82:.1f},{CY + (my - CY) * .82:.1f} {p1[0]:.1f},{p1[1]:.1f}"
+d += "Z"
+out.append(f'<path d="{d}" fill="#5b7bf0" opacity=".3" filter="url(#glow)"/>')
+out.append(f'<path d="{d}" fill="url(#fill)" stroke="#eaf1ff" stroke-width="2" stroke-linejoin="round"/>')
 for i, (name, v) in enumerate(SKILLS):
     x, y = pt(i, R * v / 100)
     out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="8" fill="#eaf1ff" opacity=".18"/><circle cx="{x:.1f}" cy="{y:.1f}" r="4" fill="#eaf1ff"/>')
