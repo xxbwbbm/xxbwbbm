@@ -32,7 +32,10 @@
 
 ### Tech stack
 
-`HTML` `CSS` `JavaScript` `TypeScript` `React` `Node.js` `Python` `Java` `MySQL` `PostgreSQL` `Git` `GitHub` `VS Code` `Figma`
+<!-- Bản đồ chòm sao: mỗi nhóm là một chòm, mỗi công nghệ là một ngôi sao (sửa tên trong assets/tech-stack.svg) -->
+<p align="center">
+  <img width="97%" src="./assets/tech-stack.svg" alt="Tech stack — Languages: JavaScript, TypeScript, Python, Java. Web: HTML, CSS, React, Node.js. Data: MySQL, PostgreSQL. Tools: Git, GitHub, VS Code, Figma" />
+</p>
 
 ### GitHub stats
 
