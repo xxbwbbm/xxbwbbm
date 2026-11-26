@@ -69,7 +69,7 @@
 <!-- ============ NOW PLAYING: tự đổi bài mỗi giờ từ playlist YouTube "4github" (workflow now-playing.yml cập nhật khối dưới) ============ -->
 <!-- NOW-PLAYING:START -->
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=T28a9ZAyh0s&list=PLeWdGep5MypQ"><img width="97%" src="./assets/now-playing.svg?v=1ff5322a38" alt="Now playing" /></a>
+  <a href="https://www.youtube.com/watch?v=XZmF30EmY3M&list=PLeWdGep5MypQ"><img width="97%" src="./assets/now-playing.svg?v=1dadee6dbe" alt="Now playing" /></a>
 </p>
 <!-- NOW-PLAYING:END -->
 
