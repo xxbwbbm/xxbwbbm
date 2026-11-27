@@ -22,9 +22,6 @@
 - Information Systems student at **University of Information Technology (UIT) – VNU-HCM**
 - Heading toward **Data Analyst / Data Engineer / AI Engineer** roles
 - Keen to get involved in scientific research
-- MBTI: **ENTP**
-- Deadly sin of choice: **Ego**
-- Into music, movies, gaming, the gym, video editing and photography
 - Reach me: **thuatsichanh@gmail.com**
 
 <img width="66%" src="./assets/soft-skills.svg?v=241cb53d" alt="Soft skills radar chart" />
